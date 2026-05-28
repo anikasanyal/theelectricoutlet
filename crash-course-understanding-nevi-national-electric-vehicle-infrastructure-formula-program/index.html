@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+
+    <title>Crash Course: Understanding NEVI (National Electric Vehicle Infrastructure Formula Program)</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preload" as="style" href="../assets/built/screen0713.css?v=9a0f2fefa4">
+    <link rel="preload" as="script" href="../assets/built/source0713.js?v=9a0f2fefa4">
+    
+    <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/inter-roman0713.woff2?v=9a0f2fefa4" crossorigin="anonymous">
+<style>
+    @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: optional;
+        src: url(../assets/fonts/inter-roman0713.woff2?v=9a0f2fefa4) format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+</style>
+
+    <link rel="stylesheet" type="text/css" href="../assets/built/screen0713.css?v=9a0f2fefa4">
+
+    <style>
+        :root {
+            --background-color: #d8e3e1
+        }
+    </style>
+
+    <script>
+        /* The script for calculating the color contrast has been taken from
+        https://gomakethings.com/dynamically-changing-the-text-color-based-on-background-color-contrast-with-vanilla-js/ */
+        var accentColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
+        accentColor = accentColor.trim().slice(1);
+
+        if (accentColor.length === 3) {
+            accentColor = accentColor[0] + accentColor[0] + accentColor[1] + accentColor[1] + accentColor[2] + accentColor[2];
+        }
+
+        var r = parseInt(accentColor.substr(0, 2), 16);
+        var g = parseInt(accentColor.substr(2, 2), 16);
+        var b = parseInt(accentColor.substr(4, 2), 16);
+        var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+        var textColor = (yiq >= 128) ? 'dark' : 'light';
+
+        document.documentElement.className = `has-${textColor}-text`;
+    </script>
+
+    <link rel="icon" href="..//storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w256h256/2024/06/Screenshot-2024-06-07-at-10.25.43-AM.png" type="image/png">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="The Electric Outlet">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Crash Course: Understanding NEVI (National Electric Vehicle Infrastructure Formula Program)">
+    <meta property="og:description" content="Understanding the National Electric Vehicle Infrastructure Formula Program (NEVI)
+
+The electric vehicle (EV) sector is experiencing significant growth. However, widespread EV adoption hinges on the development of a comprehensive and reliable charging infrastructure. The National Electric Vehicle Infrastructure Formula Program (NEVI), established by the Bipartisan Infrastructure Law of 2021 [Department">
+    <meta property="og:url" content="/crash-course-understanding-nevi-national-electric-vehicle-infrastructure-formula-program/">
+    <meta property="og:image" content="/storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w1200/2024/05/NEVIG.png">
+    <meta property="article:published_time" content="2024-05-28T23:27:01.000Z">
+    <meta property="article:modified_time" content="2024-08-21T21:31:14.000Z">
+    <meta property="article:tag" content="Energy 101">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Crash Course: Understanding NEVI (National Electric Vehicle Infrastructure Formula Program)">
+    <meta name="twitter:description" content="Understanding the National Electric Vehicle Infrastructure Formula Program (NEVI)
+
+The electric vehicle (EV) sector is experiencing significant growth. However, widespread EV adoption hinges on the development of a comprehensive and reliable charging infrastructure. The National Electric Vehicle Infrastructure Formula Program (NEVI), established by the Bipartisan Infrastructure Law of 2021 [Department">
+    <meta name="twitter:url" content="/crash-course-understanding-nevi-national-electric-vehicle-infrastructure-formula-program/">
+    <meta name="twitter:image" content="/storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w1200/2024/05/NEVIG.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="The Electric Outlet">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Energy 101">
+    <meta name="twitter:site" content="@TEOoutlet">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="797">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "The Electric Outlet",
+        "url": "/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "/storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/2024/08/Group-30892--1--1.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "The Electric Outlet",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/2024/06/Screenshot-2024-06-07-at-10.25.43-AM-2.png",
+            "width": 1178,
+            "height": 1180
+        },
+        "url": "/author/the/",
+        "sameAs": []
+    },
+    "headline": "Crash Course: Understanding NEVI (National Electric Vehicle Infrastructure Formula Program)",
+    "url": "/crash-course-understanding-nevi-national-electric-vehicle-infrastructure-formula-program/",
+    "datePublished": "2024-05-28T23:27:01.000Z",
+    "dateModified": "2024-08-21T21:31:14.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w1200/2024/05/NEVIG.png",
+        "width": 1200,
+        "height": 797
+    },
+    "keywords": "Energy 101",
+    "description": "\nUnderstanding the National Electric Vehicle Infrastructure Formula Program (NEVI)\n\nThe electric vehicle (EV) sector is experiencing significant growth. However, widespread EV adoption hinges on the development of a comprehensive and reliable charging infrastructure. The National Electric Vehicle Infrastructure Formula Program (NEVI), established by the Bipartisan Infrastructure Law of 2021 [Department of Energy], represents a $5 billion federal initiative designed to address this critical need.",
+    "mainEntityOfPage": "/crash-course-understanding-nevi-national-electric-vehicle-infrastructure-formula-program/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 6.42">
+    <link rel="alternate" type="application/rss+xml" title="The Electric Outlet" href="../rss/index.html">
+</style>
+    
+    <link href="../webmentions/receive/index.html" rel="webmention">
+    <script defer src="../public/cards.min0713.js?v=9a0f2fefa4"></script>
+    <link rel="stylesheet" type="text/css" href="../public/cards.min0713.css?v=9a0f2fefa4">
+    <script defer src="../public/member-attribution.min0713.js?v=9a0f2fefa4"></script>
+    <script defer src="../public/ghost-stats.min0713.js?v=9a0f2fefa4" data-stringify-payload="false" data-datasource="analytics_events" data-storage="localStorage" data-host="/.ghost/analytics/api/v1/page_hit"  tb_site_uuid="8cae8908-5e39-4fa6-a36f-400091386f31" tb_post_uuid="ec74ae16-6449-4cf9-8ac1-287adc6082a1" tb_post_type="post" tb_member_uuid="undefined" tb_member_status="undefined"></script><style>:root {--ghost-accent-color: #72aaa1;}</style>
+
+</head>
+<body class="post-template tag-energy-101 has-sans-title has-sans-body">
+
+<div class="gh-viewport">
+    
+    <header id="gh-navigation" class="gh-navigation is-stacked has-accent-color gh-outer">
+    <div class="gh-navigation-inner gh-inner">
+
+        <div class="gh-navigation-brand">
+            <a class="gh-navigation-logo is-title" href="../index.html">
+                    <img src="..//storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/2024/08/Group-30892--1--1.png" alt="The Electric Outlet">
+            </a>
+            <button class="gh-search gh-icon-button" aria-label="Search this site" data-ghost-search>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>            <button class="gh-burger gh-icon-button" aria-label="Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path></svg>                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>            </button>
+        </div>
+
+        <nav class="gh-navigation-menu">
+            <ul class="nav">
+    <li class="nav-home"><a href="../index.html">Home</a></li>
+    <li class="nav-about-us"><a href="../about/index.html">About Us</a></li>
+    <li class="nav-news"><a href="../tag/news/index.html">News</a></li>
+    <li class="nav-energy-101"><a href="../tag/energy-101/index.html">Energy 101</a></li>
+    <li class="nav-search"><a href="#/search">Search</a></li>
+</ul>
+
+        </nav>
+
+        <div class="gh-navigation-actions">
+                <button class="gh-search gh-icon-button" aria-label="Search this site" data-ghost-search>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>                <div class="gh-navigation-members">
+                            <a href="#/portal/signin" data-portal="signin">Sign in</a>
+                                <a class="gh-button" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                </div>
+        </div>
+
+    </div>
+</header>
+
+    
+
+<main class="gh-main">
+
+    <article class="gh-article post tag-energy-101">
+
+        <header class="gh-article-header gh-canvas">
+
+                <a class="gh-article-tag" href="../tag/energy-101/index.html">Energy 101</a>
+            <h1 class="gh-article-title is-title">Crash Course: Understanding NEVI (National Electric Vehicle Infrastructure Formula Program)</h1>
+
+                <div class="gh-meta-share">
+                    <div class="gh-article-meta">
+                        <div class="gh-article-author-image instapaper_ignore">
+                                    <a href="../author/the/index.html">
+                                        <img class="author-profile-image" src="..//storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w160/2024/06/Screenshot-2024-06-07-at-10.25.43-AM-2.png" alt="The Electric Outlet">
+                                    </a>
+                        </div>
+                        <div class="gh-article-meta-wrapper">
+                            <h4 class="gh-article-author-name"><a href="../author/the/index.html">The Electric Outlet</a></h4>
+                            <div class="gh-article-meta-content">
+                                <time class="gh-article-meta-date" datetime="2024-05-28">28 May 2024</time>
+                                    <span class="gh-article-meta-length"><span class="bull">—</span> 5 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#/share" class="gh-button gh-button-share">
+                        Share
+                    </a>
+                </div>
+
+                <figure class="gh-article-image">
+        <img
+            srcset="/storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w320/2024/05/NEVIG.png 320w,
+                    /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w600/2024/05/NEVIG.png 600w,
+                    /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w960/2024/05/NEVIG.png 960w,
+                    /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w1200/2024/05/NEVIG.png 1200w,
+                    /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w2000/2024/05/NEVIG.png 2000w"
+            sizes="(max-width: 1200px) 100vw, 1120px"
+            src="..//storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w1200/2024/05/NEVIG.png"
+            alt="Crash Course: Understanding NEVI (National Electric Vehicle Infrastructure Formula Program)"
+        >
+            <figcaption><span style="white-space: pre-wrap;">First NEVI-Funded Charging Site | Pilot Travel Center | Pilot Travel Centers LLC, General Motors &amp; EVgo Inc. Collaboration</span></figcaption>
+    </figure>
+
+        </header>
+
+        <section class="gh-content gh-canvas is-body">
+            <h3 id="understanding-the-national-electric-vehicle-infrastructure-formula-program-nevi"><br>Understanding the National Electric Vehicle Infrastructure Formula Program (NEVI)</h3><p>The electric vehicle (EV) sector is experiencing significant growth. However, widespread EV adoption hinges on the development of a comprehensive and reliable charging infrastructure. The National Electric Vehicle Infrastructure Formula Program (NEVI), established by the Bipartisan Infrastructure Law of 2021 [<a href="https://afdc.energy.gov/laws/12744?ref=theelectricoutlet.org">Department of Energy</a>], represents a $5 billion federal initiative designed to address this critical need. </p><hr><h3 id="table-of-contents">Table of Contents</h3><ol><li>Key Provisions of NEVI</li><li>The Players</li><li>NEVI Roadmap for Project Approval</li><li>Current Stage &amp; Future Trajectory</li><li>The Road Ahead: Bridging the Gap and Building a Robust Network</li><li>NEVI Timeline</li></ol><hr><p><em>↓&nbsp;Member Exclusive Content, Sign Up for FREE to Access ↓&nbsp;</em></p><hr><!--members-only--><h3 id="key-provisions-of-nevi">Key Provisions of NEVI</h3><p>NEVI allocates funds to states for the strategic deployment of *Direct Current Fast Charging (DCFC) stations along designated<em> </em>**Alternative Fuel Corridors (AFCs). A well-known AFC is the Northeast Electric Vehicle Charging Corridor, which stretches from Maine to Virginia along I-95, a major highway on the East Coast. The deployment of DCFC stations along this corridor will significantly improve the feasibility of long-distance EV trips between major cities like Boston, New York City, Philadelphia, and Washington D.C.</p><p><em><strong>*Direct Current Fast Charging (DCFC)</strong>: A type of charging station that can significantly add range to an EV battery in a short amount of time (typically 20-30 minutes).<br><strong>**Alternative Fuel Corridor (AFC)</strong>: A designated route connecting major cities and states, enabling long-distance EV travel and reducing range anxiety, a significant barrier to EV adoption.</em></p><hr><h3 id="the-players">The Players</h3><ol><li><strong>The U.S. Department of Transportation's Federal Highway Administration (FHWA)</strong>: Acts as the steward of NEVI, distributing funds, establishing program guidelines, and overseeing project implementation.</li><li><strong>States &amp; Territories</strong>: Play a pivotal role in developing NEVI implementation plans. These plans consider factors such as population density, underserved communities, and existing charging infrastructure. State plans are submitted to the FHWA for approval. California, a leader in clean transportation, is expected to receive a significant portion of NEVI funds and has already begun outlining a comprehensive plan for DCFC station deployment throughout the state [<a href="https://dot.ca.gov/-/media/dot-media/programs/esta/documents/nevi/2023-ca-nevi-plan-update-final-a11y.pdf?ref=theelectricoutlet.org">California NEVI Deployment Plan</a>].&nbsp;Texas, another major car market, is actively developing its NEVI plan with a focus on strategically placing stations along key highways to connect major cities [<a href="https://ftp.txdot.gov/pub/txdot/get-involved/statewide/EV Charging Plan/TexasElectricVehicleChargingPlan.pdf?ref=theelectricoutlet.org">Texas NEVI Deployment Plan</a>].</li><li><strong>Private Entities</strong>: Can collaborate with states to play a key role in acquiring, installing, and operating charging stations, leveraging their expertise and expediting deployment. <strong>(1) Established Utilities</strong>: Companies like <a href="https://www.linkedin.com/company/enelx/?ref=theelectricoutlet.org">Enel X</a> and <a href="https://www.linkedin.com/company/evgo/?ref=theelectricoutlet.org">EVgo</a> have extensive experience in developing and managing EV charging networks and can contribute significantly to NEVI projects. <strong>(2)</strong> <strong>Automotive Manufacturers</strong>: Leading car companies like <a href="https://www.linkedin.com/company/tesla-motors/?ref=theelectricoutlet.org">Tesla</a> are increasingly investing in charging infrastructure to support their growing EV fleets. They can partner with states to install DCFC stations along key corridors frequented by their vehicles. <strong>(3) Retail &amp; Hospitality</strong>: Businesses like <a href="https://www.linkedin.com/company/walmart/?ref=theelectricoutlet.org">Walmart</a> [<a href="https://corporate.walmart.com/news/2023/04/06/leading-the-charge-walmart-announces-plan-to-expand-electric-vehicle-charging-network?ref=theelectricoutlet.org">Walmart Corporate News</a>] and <a href="https://www.linkedin.com/company/hilton/?ref=theelectricoutlet.org">Hilton</a> [<a href="https://stories.hilton.com/releases/hilton-to-install-up-to-20000-tesla-universal-wall-connectors-at-2000-hotels?ref=theelectricoutlet.org">Hilton News Release</a>]&nbsp; play a role by installing DCFC stations at their locations, providing convenient charging options for customers and travelers while attracting new business.</li></ol><p>This collaborative approach between states and private entities is crucial for maximizing the impact of NEVI funds and ensuring the rapid and efficient deployment of a nationwide EV charging network.</p><hr><h3 id="nevi-roadmap-for-project-approval">NEVI Roadmap for Project Approval</h3><p>NEVI provides a significant financial boost to states for building a national EV charging network. But how do companies and entities get a piece of the pie and qualify their projects for NEVI funding?</p><p><strong>Understanding NEVI Guidance (FHWA Framework)</strong></p><ol><li><strong>Eligible Project Costs</strong>: NEVI covers expenses associated with the entire lifecycle of a charging station, including acquisition, installation, operation, and maintenance.</li><li><strong>Funding Allocation</strong>: The FHWA distributes funds to states based on a predetermined formula, which considers population &amp; existing charging infrastructure.</li><li><strong>Tracking Progress</strong>: States are required to report on their progress in deploying chargers. This transparency and accountability mechanism allows the FHWA and the public to monitor the program's effectiveness.</li></ol><p><strong>Qualifying for NEVI Funds (State Flexibility): Strategic Planning &amp; Collaboration</strong></p><ol><li><strong>Strategic Site Selection</strong>: Projects along AFCs are prioritized, with considerations for accessibility, safety, and ease of use for all potential users.</li><li><strong>Charger Specifications</strong>: DCFC stations are preferred due to their faster charging speeds. However, Level 2 chargers may be considered in specific situations to complement the DCFC network.</li><li><strong>Project Partnerships</strong>: Collaboration between states and private entities like utilities, car manufacturers, retail chains, and hospitality businesses is highly encouraged. This allows states to leverage the expertise and resources of private partners, expediting deployment and optimizing project outcomes. By demonstrating a strong public-private partnership, companies can strengthen their applications for NEVI funding.</li></ol><p><strong>NEVI Charging Site Requirements</strong></p><ul><li><strong>Uptime</strong>: 97%</li><li><strong>Ports</strong>: Minimum 4 Ports (can charge at least 4 vehicles)</li><li><strong>kW</strong>: Minimum 150 kW for DC Fast Chargers</li><li><strong>Availability Requirement</strong>: 24/7</li><li><strong>NEVI Funding</strong>: Covers up to 80% (maximum) of approved project costs</li><li><strong>Location</strong>: Within 1 mile of an **AFC</li><li><strong>Maintenance</strong>: Infrastructure Must be Maintained for 5 years</li></ul><p><em><strong>**Alternative Fuel Corridor (AFC)</strong>: A designated route connecting major cities and states, enabling long-distance EV travel and reducing range anxiety, a significant barrier to EV adoption.</em></p><hr><h3 id="current-stage-future-trajectory">Current Stage &amp; Future Trajectory</h3><p>As of April 2024, the NEVI program has made significant strides towards its goal of building a robust national EV charging network. </p><p><strong>Funding Allocation and Tracking Progress</strong><br>Over $1 billion has already been distributed to states based on the NEVI formula, which considers factors like population and existing infrastructure. NEVI funding allocation by state can be found on the [<a href="https://www.fhwa.dot.gov/bipartisan-infrastructure-law/evs_5year_nevi_funding_by_state.cfm?ref=theelectricoutlet.org">FHWA Website</a>].</p><p><strong>Finding NEVI-Funded Sites</strong><br>While a nationwide, real-time map of open NEVI-funded stations isn't yet available, several resources can help you stay informed:</p><ol><li><strong>State Department of Transportation Websites</strong>: Many states have already designated NEVI project websites or pages within their Department of Transportation websites. These sites often outline proposed station locations and timelines for deployment.</li><li><strong>Alternative Fuels Data Center (AFDC)</strong>: This Department of Energy resource [<a href="https://afdc.energy.gov/?ref=theelectricoutlet.org">AFDC Website</a>] provides a searchable database of existing and planned EV charging stations. While it may not differentiate between NEVI-funded stations specifically, it's a valuable tool for identifying new charging options as they become available.</li></ol><hr><h3 id="the-road-ahead-bridging-the-gap-and-building-a-robust-network">The Road Ahead: Bridging the Gap and Building a Robust Network</h3><p>NEVI stands as a beacon on the path towards a cleaner and more sustainable transportation landscape. By strategically deploying a nationwide network of DCFC, NEVI tackles the critical issue of range anxiety, paving the way for the widespread adoption of electric vehicles, while prioritizing equitable access.</p><p>However, it’s important to note that NEVI's full potential hinges on continued collaboration. Federal oversight, state-level planning, and the expertise of private entities working in tandem are crucial for the efficient and equitable deployment of these funds. By harnessing this collective effort, we can transform NEVI's vision into reality. A future with a robust and accessible charging network awaits, paving the way for a cleaner, healthier planet and a more sustainable transportation future for all.</p><hr><h3 id="nevi-timeline">NEVI Timeline</h3><p><strong>2021</strong>: NEVI is established by the Bipartisan Infrastructure Law<br><strong>2023</strong>: The FHWA releases program guidance and begins distributing funds to states<br><strong>December 13, 2023</strong>: The first NEVI funded charging site (EVgo) opens near Columbus, Ohio [<a href="https://driveelectric.gov/news/first-nevi-funded-stations-open?ref=theelectricoutlet.org">Joint Office of Energy &amp; Transportation</a>]<br><strong>April 2, 2024</strong>: The first NEVI funded Tesla Supercharger charging site opens in Rockland, Maine [<a href="https://driveelectric.gov/news/maine-nevi-stations?ref=theelectricoutlet.org">Joint Office of Energy &amp; Transportation</a>]<br><strong>2024-2026</strong>: States are expected to develop and implement their NEVI plans</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://media.licdn.com/dms/image/D5612AQFyXqtRc6DZ8Q/article-inline_image-shrink_1500_2232/0/1713845898700?e=1722470400&amp;v=beta&amp;t=lTX5lWWfT_YBY1aRCv8UbL6H1E-gJmhrjGWPxmRMX9A" class="kg-image" alt="" loading="lazy" width="960" height="540"><figcaption><span style="white-space: pre-wrap;">First NEVI-Funded Tesla Supercharger Site | V4 Post | Rockland, Maine</span></figcaption></figure><hr>
+        </section>
+
+    </article>
+
+
+</main>
+
+
+            <section class="gh-container is-grid gh-outer">
+                <div class="gh-container-inner gh-inner">
+                    <h2 class="gh-container-title">Read more</h2>
+                    <div class="gh-feed">
+                            <article class="gh-card post featured">
+    <a class="gh-card-link" href="../formula-ones-shift-to-100-sustainable-fuel-is-revolutionizing-motorsport/index.html">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w160/format/webp/2024/09/wp13183292-f1-2023-las-vegas-wallpapers.jpg 160w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w320/format/webp/2024/09/wp13183292-f1-2023-las-vegas-wallpapers.jpg 320w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w600/format/webp/2024/09/wp13183292-f1-2023-las-vegas-wallpapers.jpg 600w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w960/format/webp/2024/09/wp13183292-f1-2023-las-vegas-wallpapers.jpg 960w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w1200/format/webp/2024/09/wp13183292-f1-2023-las-vegas-wallpapers.jpg 1200w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w2000/format/webp/2024/09/wp13183292-f1-2023-las-vegas-wallpapers.jpg 2000w"
+                    sizes="320px"
+                    src="..//storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w600/2024/09/wp13183292-f1-2023-las-vegas-wallpapers.jpg"
+                    alt="Formula One’s Shift to 100% Sustainable Fuel is Revolutionizing Motorsports"
+                    loading="lazy"
+                >
+            </figure>
+        <div class="gh-card-wrapper">
+            <h3 class="gh-card-title is-title">Formula One’s Shift to 100% Sustainable Fuel is Revolutionizing Motorsports</h3>
+                    <p class="gh-card-excerpt is-body">Discover the groundbreaking innovations set to transform F1 by 2026, where cutting-edge technology meets eco-friendly racing, driving a new era of speed and sustainability.
+
+
+Table of Contents
+
+ * The Road to 2026: A Commitment to Sustainability
+   * F1’s Carbon-Neutral Goal by 2030
+   * Introduction of Hybrid Power Units in 2014
+ * Current Achievements</p>
+            <footer class="gh-card-meta">
+<!--
+             -->
+                    <span class="gh-card-author">By The Electric Outlet</span>
+                    <time class="gh-card-date" datetime="2024-09-18">18 Sep 2024</time>
+                <!--
+         --></footer>
+        </div>
+    </a>
+</article>
+                            <article class="gh-card post featured">
+    <a class="gh-card-link" href="../indias-386-billion-investment-in-renewable-energy/index.html">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w160/format/webp/2024/09/India-Solar-Panels.jpg 160w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w320/format/webp/2024/09/India-Solar-Panels.jpg 320w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w600/format/webp/2024/09/India-Solar-Panels.jpg 600w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w960/format/webp/2024/09/India-Solar-Panels.jpg 960w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w1200/format/webp/2024/09/India-Solar-Panels.jpg 1200w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w2000/format/webp/2024/09/India-Solar-Panels.jpg 2000w"
+                    sizes="320px"
+                    src="..//storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w600/2024/09/India-Solar-Panels.jpg"
+                    alt="India&#x27;s $386 Billion Investment in Renewable Energy"
+                    loading="lazy"
+                >
+            </figure>
+        <div class="gh-card-wrapper">
+            <h3 class="gh-card-title is-title">India&#x27;s $386 Billion Investment in Renewable Energy</h3>
+                    <p class="gh-card-excerpt is-body">A Closer Look at the 2030 Goals, Major Players, and Progress Across Solar, Wind, and Hydropower
+
+
+Table of Contents
+
+ * 2030 Infrastructure Target
+ * Progress and Achievements
+ * The Role of the International Solar Alliance (ISA)
+ * Challenges
+
+At the 4th Global Renewable Energy Investor&#39;s Meet (RE-INVEST) 2024, Indian Prime Minister Narendra</p>
+            <footer class="gh-card-meta">
+<!--
+             -->
+                    <span class="gh-card-author">By The Electric Outlet</span>
+                    <time class="gh-card-date" datetime="2024-09-18">18 Sep 2024</time>
+                <!--
+         --></footer>
+        </div>
+    </a>
+</article>
+                            <article class="gh-card post featured">
+    <a class="gh-card-link" href="../south-korea-approves-two-new-nuclear-reactors/index.html">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w160/format/webp/2024/09/usr_1726192972974.jpg 160w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w320/format/webp/2024/09/usr_1726192972974.jpg 320w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w600/format/webp/2024/09/usr_1726192972974.jpg 600w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w960/format/webp/2024/09/usr_1726192972974.jpg 960w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w1200/format/webp/2024/09/usr_1726192972974.jpg 1200w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w2000/format/webp/2024/09/usr_1726192972974.jpg 2000w"
+                    sizes="320px"
+                    src="..//storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w600/2024/09/usr_1726192972974.jpg"
+                    alt="South Korea Approves Two New Nuclear Reactors"
+                    loading="lazy"
+                >
+            </figure>
+        <div class="gh-card-wrapper">
+            <h3 class="gh-card-title is-title">South Korea Approves Two New Nuclear Reactors</h3>
+                    <p class="gh-card-excerpt is-body">How Shin Hanul 3 and 4 Will Help South Korea Cut Fossil Fuels and Secure a Clean Energy Future
+
+
+Table of Contents
+
+ * A Look Back: From Suspension to Construction
+ * APR1400 Reactors: A New Standard in Nuclear Technology
+ * A Nuclear Comeback
+ * Global Leadership in Nuclear Technology
+ * What’s Next for South</p>
+            <footer class="gh-card-meta">
+<!--
+             -->
+                    <span class="gh-card-author">By The Electric Outlet</span>
+                    <time class="gh-card-date" datetime="2024-09-18">18 Sep 2024</time>
+                <!--
+         --></footer>
+        </div>
+    </a>
+</article>
+                            <article class="gh-card post featured">
+    <a class="gh-card-link" href="../japans-bold-plan-to-recycle-fukushimas-radioactive-soil/index.html">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w160/format/webp/2024/09/3c2c17bb-fb6d-4608-adb7-56e9bd0863cb_f22c70aa.jpg 160w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w320/format/webp/2024/09/3c2c17bb-fb6d-4608-adb7-56e9bd0863cb_f22c70aa.jpg 320w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w600/format/webp/2024/09/3c2c17bb-fb6d-4608-adb7-56e9bd0863cb_f22c70aa.jpg 600w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w960/format/webp/2024/09/3c2c17bb-fb6d-4608-adb7-56e9bd0863cb_f22c70aa.jpg 960w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w1200/format/webp/2024/09/3c2c17bb-fb6d-4608-adb7-56e9bd0863cb_f22c70aa.jpg 1200w,
+                            /storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w2000/format/webp/2024/09/3c2c17bb-fb6d-4608-adb7-56e9bd0863cb_f22c70aa.jpg 2000w"
+                    sizes="320px"
+                    src="..//storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/size/w600/2024/09/3c2c17bb-fb6d-4608-adb7-56e9bd0863cb_f22c70aa.jpg"
+                    alt="Japan&#x27;s Bold Plan to Recycle Fukushima&#x27;s Radioactive Soil"
+                    loading="lazy"
+                >
+            </figure>
+        <div class="gh-card-wrapper">
+            <h3 class="gh-card-title is-title">Japan&#x27;s Bold Plan to Recycle Fukushima&#x27;s Radioactive Soil</h3>
+                    <p class="gh-card-excerpt is-body">How Japan’s groundbreaking strategy, backed by the IAEA, is reshaping disaster recovery (and facing local resistance)
+
+
+Table of Contents
+
+ * The Scale of the Problem
+ * Why Recycle the Radioactive Soil?
+ * The IAEA’s Role
+ * Challenges
+ * What’s Next?
+
+As mentioned in our Fukushima Nuclear Cleanup article, the tragic 2011 Fukushima</p>
+            <footer class="gh-card-meta">
+<!--
+             -->
+                    <span class="gh-card-author">By The Electric Outlet</span>
+                    <time class="gh-card-date" datetime="2024-09-18">18 Sep 2024</time>
+                <!--
+         --></footer>
+        </div>
+    </a>
+</article>
+                    </div>
+                </div>
+            </section>
+
+    
+    <footer class="gh-footer has-accent-color gh-outer">
+    <div class="gh-footer-inner gh-inner">
+
+        <div class="gh-footer-bar">
+            <span class="gh-footer-logo is-title">
+                    <img src="..//storage.ghost.io/c/8c/ae/8cae8908-5e39-4fa6-a36f-400091386f31/content/images/2024/08/Group-30892--1--1.png" alt="The Electric Outlet">
+            </span>
+            <nav class="gh-footer-menu">
+                <ul class="nav">
+    <li class="nav-sign-up"><a href="#/portal/">Sign up</a></li>
+</ul>
+
+            </nav>
+            <div class="gh-footer-copyright">
+                
+            </div>
+        </div>
+
+                <section class="gh-footer-signup">
+                    <h2 class="gh-footer-signup-header is-title">
+                        The Electric Outlet
+                    </h2>
+                    <p class="gh-footer-signup-subhead is-body">
+                        Where Energy &amp; Sustainability Meets the Next Generation
+                    </p>
+                    <form class="gh-form" data-members-form>
+    <input class="gh-form-input" id="footer-email" name="email" type="email" placeholder="jamie@example.com" required data-members-email>
+    <button class="gh-button" type="submit" aria-label="Subscribe">
+        <span><span>Subscribe</span> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"></path></svg></span>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24">
+    <g stroke-linecap="round" stroke-width="2" fill="currentColor" stroke="none" stroke-linejoin="round" class="nc-icon-wrapper">
+        <g class="nc-loop-dots-4-24-icon-o">
+            <circle cx="4" cy="12" r="3"></circle>
+            <circle cx="12" cy="12" r="3"></circle>
+            <circle cx="20" cy="12" r="3"></circle>
+        </g>
+        <style data-cap="butt">
+            .nc-loop-dots-4-24-icon-o{--animation-duration:0.8s}
+            .nc-loop-dots-4-24-icon-o *{opacity:.4;transform:scale(.75);animation:nc-loop-dots-4-anim var(--animation-duration) infinite}
+            .nc-loop-dots-4-24-icon-o :nth-child(1){transform-origin:4px 12px;animation-delay:-.3s;animation-delay:calc(var(--animation-duration)/-2.666)}
+            .nc-loop-dots-4-24-icon-o :nth-child(2){transform-origin:12px 12px;animation-delay:-.15s;animation-delay:calc(var(--animation-duration)/-5.333)}
+            .nc-loop-dots-4-24-icon-o :nth-child(3){transform-origin:20px 12px}
+            @keyframes nc-loop-dots-4-anim{0%,100%{opacity:.4;transform:scale(.75)}50%{opacity:1;transform:scale(1)}}
+        </style>
+    </g>
+</svg>        <span>Email sent</span>
+    </button>
+    <p data-members-error></p>
+</form>
+                </section>
+
+    </div>
+</footer>    
+</div>
+
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/built/source0713.js?v=9a0f2fefa4"></script>
+
+
+
+</body>
+
+</html>
