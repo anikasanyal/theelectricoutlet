@@ -38,8 +38,13 @@
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 16px;          /* Slightly widened the gap for an image */
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .logo-image {
+            height: 28px; /* Scales the full logo cleanly to match your dashboard height */
+            width: auto;
+            display: block;
         }
 
         .logo-icon {
@@ -47,12 +52,6 @@
             font-size: 24px;
         }
 
-        h1 {
-            font-size: 20px;
-            font-weight: 600;
-            margin: 0;
-            letter-spacing: -0.02em;
-        }
 
         .subtitle {
             color: var(--text-secondary);
@@ -188,8 +187,7 @@
     <div class="container">
         <header>
             <div class="logo-area">
-                <img src="logo.png" alt="The Electric Outlet Logo" style="height: 32px; width: auto; display: block;">
-                <h1>The Electric Outlet</h1>
+                <img src="full_logo_white.png" alt="The Electric Outlet" class="logo-image">
             </div>
             <p class="subtitle">Independent mapping & data tracking across macro utility grids and frontier AI cluster infrastructure.</p>
         </header>
