@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Electric Outlet — AI Infrastructure Lab</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0c;
+            --terminal-bg: #111115;
+            --text-primary: #e4e4e7;
+            --text-secondary: #a1a1aa;
+            --accent: #3b82f6;
+            --accent-dim: rgba(59, 130, 246, 0.1);
+            --border: #27272a;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .logo-icon {
+            color: var(--accent);
+            font-size: 24px;
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .section-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin: 32px 0 16px 0;
+            border-left: 2px solid var(--accent);
+            padding-left: 8px;
+        }
+
+        /* Dashboard Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 600px) {
+            .grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .card {
+            background: var(--terminal-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        .card h3 {
+            margin: 0 0 8px 0;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card h3::after {
+            content: "→";
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover h3::after {
+            transform: translateX(4px);
+            color: var(--accent);
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Ledger Style for Notes */
+        .ledger {
+            background: var(--terminal-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 8px 16px;
+        }
+
+        .ledger-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .ledger-row:last-child {
+            border-bottom: none;
+        }
+
+        .ledger-row:hover .note-title {
+            color: var(--accent);
+        }
+
+        .note-title {
+            font-weight: 400;
+            color: var(--text-primary);
+            transition: color 0.2s ease;
+        }
+
+        .note-date {
+            color: var(--text-secondary);
+            font-variant-numeric: tabular-nums;
+            font-size: 13px;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo-area">
+                <span class="logo-icon">⚡</span>
+                <h1>The Electric Outlet</h1>
+            </div>
+            <p class="subtitle">Independent mapping & data tracking across macro utility grids and frontier AI cluster infrastructure.</p>
+        </header>
+
+        <!-- PILLAR 2: INTERACTIVE MAP HOOKS -->
+        <div class="section-title">Interactive Core Engines</div>
+        <div class="grid">
+            <a href="#" class="card">
+                <h3>AI Co-Location & Grid Capacity Map</h3>
+                <p>Tracking large-scale power generation assets against regional utility interconnection queues and active AI clusters.</p>
+            </a>
+            <a href="#" class="card">
+                <h3>High-Density Edge Nodes</h3>
+                <p>Mapping urban fiber junction density and distributed cooling profiles to bypass macro grid constraints.</p>
+            </a>
+        </div>
+
+        <!-- PILLAR 3: TECHNICAL NOTES LEDGER -->
+        <div class="section-title">Operational Notes & Field Ledger</div>
+        <div class="ledger">
+            <div class="ledger-row">
+                <span class="note-title">[Initialization] Constructing real-time geo-data schemas for regional grids...</span>
+                <span class="note-date">June 2026</span>
+            </div>
+        </div>
+
+        <!-- PILLAR 1: HISTORICAL ARCHIVE RECOGNITION -->
+        <footer>
+            <span>Maintained independently as an open-source, zero-overhead tracking tool.</span>
+            <a href="archive/index.html">View 2024 Legacy Archive</a>
+        </footer>
+    </div>
+
+</body>
+</html>
