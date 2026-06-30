@@ -29,7 +29,7 @@
         }
 
         .container {
-            max-width: 1200px; /* Widened to fit the dual-pane dashboard beautifully */
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -105,7 +105,7 @@
         /* Presets Button Array */
         .presets-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
             gap: 10px;
         }
 
@@ -357,6 +357,7 @@
                     <button class="btn-preset active" onclick="loadPreset('custom')">⚙️ Custom Manual</button>
                     <button class="btn-preset" onclick="loadPreset('nvidia')">🟢 NVIDIA 100-Home</button>
                     <button class="btn-preset" onclick="loadPreset('tesla')">🔴 Tesla Megapod</button>
+                    <button class="btn-preset" onclick="loadPreset('mesh')">⚡ MESH Architecture</button>
                 </div>
 
                 <div class="control-group">
@@ -389,7 +390,7 @@
                     <div class="canvas-grid-bg"></div>
                     <div class="node-network" id="canvas-nodes">
                         <div class="center-hub"></div>
-                        </div>
+                    </div>
                 </div>
 
                 <div class="metrics-grid">
@@ -413,6 +414,16 @@
                 
                 <div class="note-card">
                     <div class="note-meta">
+                        <span class="note-date">PROPRIETARY THESIS</span>
+                        <span class="note-tag">MESH DESIGN</span>
+                    </div>
+                    <h3>Hierarchical Clustered Routing Engine</h3>
+                    <p>Standard edge network typologies completely drop computing utilization due to wide-area network fiber propagation. By grouping decentralized nodes into localized peer cells, 95% of model weights synchronize locally—mitigating the physical speed-of-light penalty across distributed nodes.</p>
+                    <button class="btn-load-model" onclick="loadPreset('mesh')">Simulate MESH Architecture</button>
+                </div>
+
+                <div class="note-card">
+                    <div class="note-meta">
                         <span class="note-date">JUNE 2026</span>
                         <span class="note-tag">HARDWARE ACCUMULATION</span>
                     </div>
@@ -426,8 +437,8 @@
                         <span class="note-date">MAY 2026</span>
                         <span class="note-tag">DISTRIBUTED EDGE</span>
                     </div>
-                    <h3>The 100-Home Distributed Cluster Pilot</h3>
-                    <p>Evaluating the architectural trade-offs of deploying distributed consumer clusters across low-power residential environments. While avoiding massive datacenter thermal demands, the configuration incurs severe communication synchronization penalties across wide physical distances.</p>
+                    <h3>SPAN XFRA Distributed Compute Launch</h3>
+                    <p>Evaluating SPAN's partnership with NVIDIA to slide Blackwell GPUs directly into consumer smart electrical panels. While utilizing existing residential power headroom brilliantly evades macro grid constraints, a traditional flat network organization limits these nodes exclusively to decoupled inference workloads due to raw distance constraints.</p>
                     <button class="btn-load-model" onclick="loadPreset('nvidia')">Load Model Into Sandbox</button>
                 </div>
 
@@ -438,7 +449,7 @@
                     </div>
                     <h3>The Structural Pillar Split of the AI Ecosystem</h3>
                     <p>AI scales through three distinct components: Data (e.g., Scale AI), Algorithms (e.g., OpenAI), and Compute (e.g., NVIDIA). While firms continuously cross competitive boundaries, the ultimate constraint on the speed of infrastructure iteration is no longer algorithmic—it is physical energy delivery, validating the immediate necessity for distributed mesh network models.</p>
-                    </div>
+                </div>
 
             </div>
 
@@ -451,173 +462,137 @@
     </div>
 
     <script>
-        // Preset Definitions Config Object
-    const presets = {
-        nvidia: { nodes: 90, power: 4, radius: 110, architecture: 'standard' },
-        tesla: { nodes: 12, power: 85, radius: 15, architecture: 'standard' },
-        mesh: { nodes: 90, power: 4, radius: 110, architecture: 'mesh' }, // Your validation model
-        custom: { nodes: 20, power: 15, radius: 30, architecture: 'standard' }
-    };
-
-    // Add a Mesh button to your HTML presets row if you want, or just let them toggle it:
-    function loadPreset(key) {
-        const buttons = document.querySelectorAll('.btn-preset');
-        buttons.forEach(btn => btn.classList.remove('active'));
-        
-        const targetBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(key));
-        if(targetBtn) targetBtn.classList.add('active');
-
-        const config = presets[key];
-        document.getElementById('input-nodes').value = config.nodes;
-        document.getElementById('input-power').value = config.power;
-        document.getElementById('input-radius').value = config.radius;
-
-        // Track the active architecture globally for the math core
-        window.currentArchitecture = config.architecture;
-
-        calculatePhysics();
-    }
-
         function calculatePhysics() {
-        // 1. Grab inputs directly from the DOM sliders
-        const nodes = parseInt(document.getElementById('input-nodes').value);
-        const power = parseInt(document.getElementById('input-power').value);
-        const radius = parseInt(document.getElementById('input-radius').value);
+            const nodes = parseInt(document.getElementById('input-nodes').value);
+            const power = parseInt(document.getElementById('input-power').value);
+            const radius = parseInt(document.getElementById('input-radius').value);
 
-        // Update slider label readouts
-        document.getElementById('val-nodes').innerText = nodes;
-        document.getElementById('val-power').innerText = power + " kW";
-        document.getElementById('val-radius').innerText = radius + " ms";
+            document.getElementById('val-nodes').innerText = nodes;
+            document.getElementById('val-power').innerText = power + " kW";
+            document.getElementById('val-radius').innerText = radius + " ms";
 
-        // 2. Determine Architecture Mode strictly from the active button state
-        let arch = 'standard';
-        const activeBtn = document.querySelector('.btn-preset.active');
-        if (activeBtn) {
-            const btnText = activeBtn.innerText.toLowerCase();
-            if (btnText.includes('mesh')) {
-                arch = 'mesh';
-            } else if (btnText.includes('tesla')) {
-                arch = 'tesla';
-            } else if (btnText.includes('nvidia')) {
-                arch = 'nvidia';
-            }
-        }
-
-        // 3. Math Engine Core
-        // Total Site Draw
-        const totalPowerKW = nodes * power;
-        document.getElementById('metric-tco').innerText = totalPowerKW >= 1000 ? 
-            (totalPowerKW / 1000).toFixed(2) + " MW" : totalPowerKW + " kW";
-
-        // Latency & Synchronization Overhead Calculations
-        const baseLatency = radius;
-        const concurrencyOverhead = Math.log2(nodes) * 4; 
-        let finalLatency = Math.round(baseLatency + concurrencyOverhead);
-
-        // If active architecture is Mesh, drop sync penalty by 85% via hierarchical token-routing
-        if (arch === 'mesh') {
-            finalLatency = Math.round((baseLatency * 0.15) + (concurrencyOverhead * 0.2));
-        }
-
-        document.getElementById('metric-latency').innerText = finalLatency + " ms";
-
-        // Dynamic Color Status
-        const latencyMetric = document.getElementById('metric-latency');
-        if (finalLatency > 80) {
-            latencyMetric.className = "metric-val status-alert";
-        } else if (finalLatency > 40) {
-            latencyMetric.className = "metric-val status-warn";
-        } else {
-            latencyMetric.className = "metric-val status-good";
-        }
-
-        // Thermal Efficiency Calculations
-        let thermalEff = 100 - (power * 0.3) - (nodes * 0.05);
-        thermalEff = Math.max(Math.min(Math.round(thermalEff), 99), 45);
-        document.getElementById('metric-efficiency').innerText = thermalEff + "%";
-
-        // 4. Visual Topology Graph Rendering
-        const canvas = document.getElementById('canvas-nodes');
-        if (canvas) {
-            // Clear old nodes out of the DOM cleanly
-            const currentSatellites = canvas.querySelectorAll('.satellite-node');
-            currentSatellites.forEach(n => n.remove());
-
-            for (let i = 0; i < nodes; i++) {
-                const node = document.createElement('div');
-                node.className = 'satellite-node';
-                
-                const angle = (i * 2 * Math.PI) / nodes;
-                const visualDistance = Math.min(20 + (radius * 0.5), 90); 
-                
-                let xOffset = Math.cos(angle) * visualDistance;
-                let yOffset = Math.sin(angle) * visualDistance;
-
-                // Mesh UI View: Clusters individual nodes into geometric cells of 5
-                if (arch === 'mesh') {
-                    const clusterId = Math.floor(i / 5);
-                    const totalClusters = Math.ceil(nodes / 5);
-                    const clusterAngle = (clusterId * 2 * Math.PI) / totalClusters;
-                    
-                    const clusterX = Math.cos(clusterAngle) * visualDistance;
-                    const clusterY = Math.sin(clusterAngle) * visualDistance;
-                    
-                    const localAngle = ((i % 5) * 2 * Math.PI) / 5;
-                    xOffset = clusterX + (Math.cos(localAngle) * 7);
-                    yOffset = clusterY + (Math.sin(localAngle) * 7);
-                    
-                    node.style.background = '#3b82f6'; // Bright structural blue 
-                    node.style.boxShadow = '0 0 8px #3b82f6';
-                } else {
-                    // Default Standard layouts (NVIDIA / Tesla warnings)
-                    if (power > 50) {
-                        node.style.background = '#ef4444'; // Red alert for thermal density
-                        node.style.boxShadow = '0 0 6px #ef4444';
-                    } else if (radius > 70) {
-                        node.style.background = '#eab308'; // Amber alert for dispersion latency
-                        node.style.boxShadow = '0 0 4px #eab308';
-                    } else {
-                        node.style.background = '#ffffff';
-                    }
+            // Determine active mode by reading button classes directly
+            let arch = 'standard';
+            const activeBtn = document.querySelector('.btn-preset.active');
+            if (activeBtn) {
+                const btnText = activeBtn.innerText.toLowerCase();
+                if (btnText.includes('mesh')) {
+                    arch = 'mesh';
+                } else if (btnText.includes('tesla')) {
+                    arch = 'tesla';
+                } else if (btnText.includes('nvidia')) {
+                    arch = 'nvidia';
                 }
+            }
 
-                node.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-                canvas.appendChild(node);
+            // 1. Total Power Math
+            const totalPowerKW = nodes * power;
+            document.getElementById('metric-tco').innerText = totalPowerKW >= 1000 ? 
+                (totalPowerKW / 1000).toFixed(2) + " MW" : totalPowerKW + " kW";
+
+            // 2. Latency Math Core
+            const baseLatency = radius;
+            const concurrencyOverhead = Math.log2(nodes) * 4; 
+            let finalLatency = Math.round(baseLatency + concurrencyOverhead);
+
+            // MESH Proprietary Algorithmic Shift
+            if (arch === 'mesh') {
+                finalLatency = Math.round((baseLatency * 0.15) + (concurrencyOverhead * 0.2));
+            }
+
+            document.getElementById('metric-latency').innerText = finalLatency + " ms";
+
+            const latencyMetric = document.getElementById('metric-latency');
+            if (finalLatency > 80) {
+                latencyMetric.className = "metric-val status-alert";
+            } else if (finalLatency > 40) {
+                latencyMetric.className = "metric-val status-warn";
+            } else {
+                latencyMetric.className = "metric-val status-good";
+            }
+
+            // 3. Thermal Efficiency Math
+            let thermalEff = 100 - (power * 0.3) - (nodes * 0.05);
+            thermalEff = Math.max(Math.min(Math.round(thermalEff), 99), 45);
+            document.getElementById('metric-efficiency').innerText = thermalEff + "%";
+
+            // 4. Graphical Rendering Pipeline
+            const canvas = document.getElementById('canvas-nodes');
+            if (canvas) {
+                const currentSatellites = canvas.querySelectorAll('.satellite-node');
+                currentSatellites.forEach(n => n.remove());
+
+                for (let i = 0; i < nodes; i++) {
+                    const node = document.createElement('div');
+                    node.className = 'satellite-node';
+                    
+                    const angle = (i * 2 * Math.PI) / nodes;
+                    const visualDistance = Math.min(20 + (radius * 0.5), 90); 
+                    
+                    let xOffset = Math.cos(angle) * visualDistance;
+                    let yOffset = Math.sin(angle) * visualDistance;
+
+                    if (arch === 'mesh') {
+                        // Node Clustering Visual Trick
+                        const clusterId = Math.floor(i / 5);
+                        const totalClusters = Math.ceil(nodes / 5);
+                        const clusterAngle = (clusterId * 2 * Math.PI) / totalClusters;
+                        
+                        const clusterX = Math.cos(clusterAngle) * visualDistance;
+                        const clusterY = Math.sin(clusterAngle) * visualDistance;
+                        
+                        const localAngle = ((i % 5) * 2 * Math.PI) / 5;
+                        xOffset = clusterX + (Math.cos(localAngle) * 7);
+                        yOffset = clusterY + (Math.sin(localAngle) * 7);
+                        
+                        node.style.background = '#3b82f6'; 
+                        node.style.boxShadow = '0 0 8px #3b82f6';
+                    } else {
+                        if (power > 50) {
+                            node.style.background = '#ef4444'; 
+                            node.style.boxShadow = '0 0 6px #ef4444';
+                        } else if (radius > 70) {
+                            node.style.background = '#eab308'; 
+                            node.style.boxShadow = '0 0 4px #eab308';
+                        } else {
+                            node.style.background = '#ffffff';
+                        }
+                    }
+
+                    node.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+                    canvas.appendChild(node);
+                }
             }
         }
-    }
 
-    // Make sure preset loader forces class toggle immediately before reflow
-    function loadPreset(key) {
-        const presetConfigs = {
-            nvidia: { nodes: 90, power: 4, radius: 110 },
-            tesla: { nodes: 12, power: 85, radius: 15 },
-            mesh: { nodes: 90, power: 4, radius: 110 }
-        };
+        function loadPreset(key) {
+            const presetConfigs = {
+                nvidia: { nodes: 90, power: 4, radius: 110 },
+                tesla: { nodes: 12, power: 85, radius: 15 },
+                mesh: { nodes: 90, power: 4, radius: 110 }
+            };
 
-        // Find all preset buttons and shift the active class state
-        const buttons = document.querySelectorAll('.btn-preset');
-        buttons.forEach(btn => {
-            const onClickAttr = btn.getAttribute('onclick') || '';
-            if (onClickAttr.includes(key)) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
+            const buttons = document.querySelectorAll('.btn-preset');
+            buttons.forEach(btn => {
+                const onClickAttr = btn.getAttribute('onclick') || '';
+                if (onClickAttr.includes(key)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
 
-        const config = presetConfigs[key] || presetConfigs['nvidia'];
-        
-        document.getElementById('input-nodes').value = config.nodes;
-        document.getElementById('input-power').value = config.power;
-        document.getElementById('input-radius').value = config.radius;
+            const config = presetConfigs[key] || { nodes: 20, power: 15, radius: 30 };
+            
+            document.getElementById('input-nodes').value = config.nodes;
+            document.getElementById('input-power').value = config.power;
+            document.getElementById('input-radius').value = config.radius;
 
+            calculatePhysics();
+        }
+
+        // Initialize Engine
         calculatePhysics();
-    }
-
-    // Initalize on script injection
-    calculatePhysics();
-
     </script>
 </body>
 </html>
