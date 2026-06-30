@@ -478,90 +478,144 @@
         calculatePhysics();
     }
 
-    function calculatePhysics() {
+        function calculatePhysics() {
+        // 1. Grab inputs directly from the DOM sliders
         const nodes = parseInt(document.getElementById('input-nodes').value);
         const power = parseInt(document.getElementById('input-power').value);
         const radius = parseInt(document.getElementById('input-radius').value);
-        const arch = window.currentArchitecture || 'standard';
 
+        // Update slider label readouts
         document.getElementById('val-nodes').innerText = nodes;
         document.getElementById('val-power').innerText = power + " kW";
         document.getElementById('val-radius').innerText = radius + " ms";
 
-        // 1. Total Site Power Draw
-        const totalPowerKW = nodes * power;
-        document.getElementById('metric-tco').innerText = totalPowerKW >= 1000 ? (totalPowerKW / 1000).toFixed(2) + " MW" : totalPowerKW + " kW";
+        // 2. Determine Architecture Mode strictly from the active button state
+        let arch = 'standard';
+        const activeBtn = document.querySelector('.btn-preset.active');
+        if (activeBtn) {
+            const btnText = activeBtn.innerText.toLowerCase();
+            if (btnText.includes('mesh')) {
+                arch = 'mesh';
+            } else if (btnText.includes('tesla')) {
+                arch = 'tesla';
+            } else if (btnText.includes('nvidia')) {
+                arch = 'nvidia';
+            }
+        }
 
-        // 2. THE STARTUP VALIDATION MATH CORE
+        // 3. Math Engine Core
+        // Total Site Draw
+        const totalPowerKW = nodes * power;
+        document.getElementById('metric-tco').innerText = totalPowerKW >= 1000 ? 
+            (totalPowerKW / 1000).toFixed(2) + " MW" : totalPowerKW + " kW";
+
+        // Latency & Synchronization Overhead Calculations
         const baseLatency = radius;
         const concurrencyOverhead = Math.log2(nodes) * 4; 
         let finalLatency = Math.round(baseLatency + concurrencyOverhead);
 
-        // If the model runs on Mesh Architecture, apply localized token-routing reduction
+        // If active architecture is Mesh, drop sync penalty by 85% via hierarchical token-routing
         if (arch === 'mesh') {
-            // Mesh groups nodes into localized sub-clusters, reducing wide-area sync overhead by 85%
             finalLatency = Math.round((baseLatency * 0.15) + (concurrencyOverhead * 0.2));
         }
 
         document.getElementById('metric-latency').innerText = finalLatency + " ms";
 
-        // Dynamic Color Coding based on performance reality
+        // Dynamic Color Status
         const latencyMetric = document.getElementById('metric-latency');
         if (finalLatency > 80) {
             latencyMetric.className = "metric-val status-alert";
         } else if (finalLatency > 40) {
             latencyMetric.className = "metric-val status-warn";
         } else {
-            latencyMetric.className = "metric-val status-good"; // Mesh will force this to stay green
+            latencyMetric.className = "metric-val status-good";
         }
 
-        // 3. Thermal Efficiency
+        // Thermal Efficiency Calculations
         let thermalEff = 100 - (power * 0.3) - (nodes * 0.05);
         thermalEff = Math.max(Math.min(Math.round(thermalEff), 99), 45);
         document.getElementById('metric-efficiency').innerText = thermalEff + "%";
 
-        // --- VISUAL GRAPH RENDERING ENGINE ---
+        // 4. Visual Topology Graph Rendering
         const canvas = document.getElementById('canvas-nodes');
-        const currentSatellites = canvas.querySelectorAll('.satellite-node');
-        currentSatellites.forEach(node => node.remove());
+        if (canvas) {
+            // Clear old nodes out of the DOM cleanly
+            const currentSatellites = canvas.querySelectorAll('.satellite-node');
+            currentSatellites.forEach(n => n.remove());
 
-        for (let i = 0; i < nodes; i++) {
-            const node = document.createElement('div');
-            node.className = 'satellite-node';
-            
-            const angle = (i * 2 * Math.PI) / nodes;
-            const visualDistance = Math.min(20 + (radius * 0.5), 90); 
-            
-            let xOffset = Math.cos(angle) * visualDistance;
-            let yOffset = Math.sin(angle) * visualDistance;
+            for (let i = 0; i < nodes; i++) {
+                const node = document.createElement('div');
+                node.className = 'satellite-node';
+                
+                const angle = (i * 2 * Math.PI) / nodes;
+                const visualDistance = Math.min(20 + (radius * 0.5), 90); 
+                
+                let xOffset = Math.cos(angle) * visualDistance;
+                let yOffset = Math.sin(angle) * visualDistance;
 
-            // Visualizing the Mesh Architecture: pull nodes into tight, localized geometric clusters
-            if (arch === 'mesh') {
-                const clusterId = Math.floor(i / 5); // Group every 5 nodes together
-                const clusterAngle = (clusterId * 2 * Math.PI) / (nodes / 5);
-                const clusterX = Math.cos(clusterAngle) * visualDistance;
-                const clusterY = Math.sin(clusterAngle) * visualDistance;
-                
-                // Local offset within the cluster
-                const localAngle = (i % 5 * 2 * Math.PI) / 5;
-                xOffset = clusterX + (Math.cos(localAngle) * 8);
-                yOffset = clusterY + (Math.sin(localAngle) * 8);
-                
-                node.style.background = 'var(--accent)';
-                node.style.boxShadow = '0 0 6px var(--accent)';
-            } else {
-                if (power > 50) {
-                    node.style.background = 'var(--danger)';
-                    node.style.boxShadow = '0 0 4px var(--danger)';
-                } else if (radius > 70) {
-                    node.style.background = 'var(--warning)';
+                // Mesh UI View: Clusters individual nodes into geometric cells of 5
+                if (arch === 'mesh') {
+                    const clusterId = Math.floor(i / 5);
+                    const totalClusters = Math.ceil(nodes / 5);
+                    const clusterAngle = (clusterId * 2 * Math.PI) / totalClusters;
+                    
+                    const clusterX = Math.cos(clusterAngle) * visualDistance;
+                    const clusterY = Math.sin(clusterAngle) * visualDistance;
+                    
+                    const localAngle = ((i % 5) * 2 * Math.PI) / 5;
+                    xOffset = clusterX + (Math.cos(localAngle) * 7);
+                    yOffset = clusterY + (Math.sin(localAngle) * 7);
+                    
+                    node.style.background = '#3b82f6'; // Bright structural blue 
+                    node.style.boxShadow = '0 0 8px #3b82f6';
+                } else {
+                    // Default Standard layouts (NVIDIA / Tesla warnings)
+                    if (power > 50) {
+                        node.style.background = '#ef4444'; // Red alert for thermal density
+                        node.style.boxShadow = '0 0 6px #ef4444';
+                    } else if (radius > 70) {
+                        node.style.background = '#eab308'; // Amber alert for dispersion latency
+                        node.style.boxShadow = '0 0 4px #eab308';
+                    } else {
+                        node.style.background = '#ffffff';
+                    }
                 }
-            }
 
-            node.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-            canvas.appendChild(node);
+                node.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+                canvas.appendChild(node);
+            }
         }
     }
+
+    // Make sure preset loader forces class toggle immediately before reflow
+    function loadPreset(key) {
+        const presetConfigs = {
+            nvidia: { nodes: 90, power: 4, radius: 110 },
+            tesla: { nodes: 12, power: 85, radius: 15 },
+            mesh: { nodes: 90, power: 4, radius: 110 }
+        };
+
+        // Find all preset buttons and shift the active class state
+        const buttons = document.querySelectorAll('.btn-preset');
+        buttons.forEach(btn => {
+            const onClickAttr = btn.getAttribute('onclick') || '';
+            if (onClickAttr.includes(key)) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        const config = presetConfigs[key] || presetConfigs['nvidia'];
+        
+        document.getElementById('input-nodes').value = config.nodes;
+        document.getElementById('input-power').value = config.power;
+        document.getElementById('input-radius').value = config.radius;
+
+        calculatePhysics();
+    }
+
+    // Initalize on script injection
     calculatePhysics();
 
     </script>
