@@ -29,11 +29,18 @@
     <style>
         :root {
             --background-color: #d8e3e1
-            /* Force the navigation menu links to be white */
-            .gh-navigation-menu a {
-            color: #ffffff !important;
-            }
         }
+
+        /* Forces ALL text inside the navigation header links to be white */
+        .gh-navigation-inner, 
+        .gh-navigation-menu, 
+        .gh-navigation-menu ul, 
+        .gh-navigation-menu li, 
+        .gh-navigation-menu a {
+            color: #ffffff !important;
+            opacity: 1 !important;
+        }
+        
     </style>
 
     <script>
