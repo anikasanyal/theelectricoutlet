@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -191,7 +191,7 @@
             opacity: 0.3;
         }
 
-        /* Dynamic Visual Nodes Renderer via JS */
+        /* Dynamic Visual Nodes Renderer */
         .node-network {
             position: absolute;
             inset: 0;
@@ -249,6 +249,60 @@
             text-transform: uppercase;
             color: var(--text-secondary);
             margin-top: 4px;
+        }
+
+        /* NEW: Infrastructure Registry List View */
+        .registry-section {
+            background: #141419;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 12px;
+        }
+
+        .registry-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #1f1f23;
+            padding-bottom: 4px;
+        }
+
+        .registry-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .registry-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            padding: 6px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            background: #18181b;
+            border: 1px solid transparent;
+            transition: all 0.15s ease;
+        }
+
+        .registry-row:hover {
+            border-color: #3f3f46;
+            background: #202024;
+        }
+
+        .registry-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .registry-spec {
+            font-family: monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
         }
 
         /* Right Pane: Notes Feed */
@@ -355,9 +409,9 @@
                 
                 <div class="presets-row">
                     <button class="btn-preset active" onclick="loadPreset('custom')">⚙️ Custom Manual</button>
-                    <button class="btn-preset" onclick="loadPreset('nvidia')">🟢 NVIDIA 100-Home</button>
+                    <button class="btn-preset" onclick="loadPreset('nvidia')">🟢 SPAN XFRA</button>
                     <button class="btn-preset" onclick="loadPreset('tesla')">🔴 Tesla Megapod</button>
-                    <button class="btn-preset" onclick="loadPreset('mesh')">⚡ MESH Architecture</button>
+                    <button class="btn-preset" onclick="loadPreset('mesh')">⚡ MESH Net</button>
                 </div>
 
                 <div class="control-group">
@@ -395,8 +449,8 @@
 
                 <div class="metrics-grid">
                     <div class="metric-card">
-                        <div class="metric-val" id="metric-tco">1.2 MW</div>
-                        <div class="metric-lbl">Total Site Draw</div>
+                        <div class="metric-val" id="metric-tco">--</div>
+                        <div class="metric-lbl">TEO Index (𝒯)</div>
                     </div>
                     <div class="metric-card">
                         <div class="metric-val" id="metric-latency">32 ms</div>
@@ -405,6 +459,28 @@
                     <div class="metric-card">
                         <div class="metric-val" id="metric-efficiency">94%</div>
                         <div class="metric-lbl">Thermal Efficiency</div>
+                    </div>
+                </div>
+
+                <div class="registry-section">
+                    <div class="registry-title">📁 Global Cluster Blueprint Directory</div>
+                    <div class="registry-list">
+                        <div class="registry-row" onclick="loadRegistryCluster(100, 95, 2)">
+                            <span class="registry-name">xAI Colossus (Memphis, TN)</span>
+                            <span class="registry-spec">100 Nodes • 95 kW • 2 ms</span>
+                        </div>
+                        <div class="registry-row" onclick="loadRegistryCluster(45, 80, 8)">
+                            <span class="registry-name">AWS Constellation (Pennsylvania Nuclear Site)</span>
+                            <span class="registry-spec">45 Nodes • 80 kW • 8 ms</span>
+                        </div>
+                        <div class="registry-row" onclick="loadPreset('nvidia')">
+                            <span class="registry-name">SPAN XFRA Distributed Edge Deployment</span>
+                            <span class="registry-spec">90 Nodes • 4 kW • 110 ms</span>
+                        </div>
+                        <div class="registry-row" onclick="loadPreset('mesh')">
+                            <span class="registry-name">MESH Topology Lab Simulation</span>
+                            <span class="registry-spec">90 Nodes • 4 kW • 110 ms</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -418,7 +494,7 @@
                         <span class="note-tag">MESH DESIGN</span>
                     </div>
                     <h3>Hierarchical Clustered Routing Engine</h3>
-                    <p>Standard edge network typologies completely drop computing utilization due to wide-area network fiber propagation. By grouping decentralized nodes into localized peer cells, 95% of model weights synchronize locally—mitigating the physical speed-of-light penalty across distributed nodes.</p>
+                    <p>Standard edge network topologies completely drop computing utilization due to wide-area network fiber propagation. By grouping decentralized nodes into localized peer cells, 95% of model weights synchronize locally—mitigating the physical speed-of-light penalty across distributed nodes.</p>
                     <button class="btn-load-model" onclick="loadPreset('mesh')">Simulate MESH Architecture</button>
                 </div>
 
@@ -448,9 +524,8 @@
                         <span class="note-tag">MACRO STRATEGY</span>
                     </div>
                     <h3>The Structural Pillar Split of the AI Ecosystem</h3>
-                    <p>AI scales through three distinct components: Data (e.g., Scale AI), Algorithms (e.g., OpenAI), and Compute (e.g., NVIDIA). While firms continuously cross competitive boundaries, the ultimate constraint on the speed of infrastructure iteration is no longer algorithmic—it is physical energy delivery, validating the immediate necessity for distributed mesh network models.</p>
+                    <p>AI scales through three distinct components: Data, Algorithms, and Compute. While firms continuously cross competitive boundaries, the ultimate constraint on the speed of infrastructure iteration is no longer algorithmic—it is physical energy delivery, validating the immediate necessity for distributed mesh network models.</p>
                 </div>
-
             </div>
 
         </div>
@@ -471,7 +546,6 @@
             document.getElementById('val-power').innerText = power + " kW";
             document.getElementById('val-radius').innerText = radius + " ms";
 
-            // Determine active mode by reading button classes directly
             let arch = 'standard';
             const activeBtn = document.querySelector('.btn-preset.active');
             if (activeBtn) {
@@ -485,17 +559,11 @@
                 }
             }
 
-            // 1. Total Power Math
-            const totalPowerKW = nodes * power;
-            document.getElementById('metric-tco').innerText = totalPowerKW >= 1000 ? 
-                (totalPowerKW / 1000).toFixed(2) + " MW" : totalPowerKW + " kW";
-
-            // 2. Latency Math Core
+            // 1. Latency Calculations
             const baseLatency = radius;
             const concurrencyOverhead = Math.log2(nodes) * 4; 
             let finalLatency = Math.round(baseLatency + concurrencyOverhead);
 
-            // MESH Proprietary Algorithmic Shift
             if (arch === 'mesh') {
                 finalLatency = Math.round((baseLatency * 0.15) + (concurrencyOverhead * 0.2));
             }
@@ -511,10 +579,28 @@
                 latencyMetric.className = "metric-val status-good";
             }
 
-            // 3. Thermal Efficiency Math
+            // 2. Thermal Efficiency Calculations
             let thermalEff = 100 - (power * 0.3) - (nodes * 0.05);
             thermalEff = Math.max(Math.min(Math.round(thermalEff), 99), 45);
             document.getElementById('metric-efficiency').innerText = thermalEff + "%";
+
+            // 3. NEW: THE TEO INDEX FORMULA VALUE (𝒯)
+            // Evaluates configuration efficiency: High Node Power / (Latency * Cooling Penalty)
+            const coolingPenalty = (100 - thermalEff) / 10;
+            let teoIndex = (nodes * power) / (finalLatency * (coolingPenalty || 1));
+            
+            // Boost factor for proprietary routing topologies
+            if (arch === 'mesh') teoIndex *= 4.5; 
+            
+            const indexMetric = document.getElementById('metric-tco');
+            indexMetric.innerText = teoIndex.toFixed(1);
+            if (teoIndex > 15) {
+                indexMetric.className = "metric-val status-good";
+            } else if (teoIndex > 5) {
+                indexMetric.className = "metric-val status-warn";
+            } else {
+                indexMetric.className = "metric-val status-alert";
+            }
 
             // 4. Graphical Rendering Pipeline
             const canvas = document.getElementById('canvas-nodes');
@@ -533,7 +619,6 @@
                     let yOffset = Math.sin(angle) * visualDistance;
 
                     if (arch === 'mesh') {
-                        // Node Clustering Visual Trick
                         const clusterId = Math.floor(i / 5);
                         const totalClusters = Math.ceil(nodes / 5);
                         const clusterAngle = (clusterId * 2 * Math.PI) / totalClusters;
@@ -591,7 +676,24 @@
             calculatePhysics();
         }
 
-        // Initialize Engine
+        // NEW: Handles direct entries loaded via raw row clicks in directory
+        function loadRealWorldCluster(nodes, power, radius) {
+            const buttons = document.querySelectorAll('.btn-preset');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-custom-manual')?.classList.add('active'); // revert focus to custom
+
+            document.getElementById('input-nodes').value = nodes;
+            document.getElementById('input-power').value = power;
+            document.getElementById('input-radius').value = radius;
+
+            calculatePhysics();
+        }
+        
+        // Map programmatic rows seamlessly to index values
+        function loadRegistryCluster(n, p, r) {
+            loadRealWorldCluster(n, p, r);
+        }
+
         calculatePhysics();
     </script>
 </body>
