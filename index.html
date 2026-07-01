@@ -465,19 +465,19 @@
                 <div class="registry-section">
                     <div class="registry-title">📁 Global Cluster Blueprint Directory</div>
                     <div class="registry-list">
-                        <div class="registry-row" onclick="loadRegistryCluster(100, 55, 2)">
+                        <div class="registry-row" onclick="loadRegistryCluster(100, 55, 2, 'Rack')">
                             <span class="registry-name">xAI Colossus (Memphis Site - Phase 1 block)</span>
                             <span class="registry-spec">100 Racks • 55 kW/rack • 2 ms WAN Bound</span>
                         </div>
-                        <div class="registry-row" onclick="loadRegistryCluster(45, 120, 8)">
+                        <div class="registry-row" onclick="loadRegistryCluster(45, 120, 8, 'Rack')">
                             <span class="registry-name">AWS Constellation (Talen Nuclear - Blackwell NVL72)</span>
                             <span class="registry-spec">45 Racks • 120 kW/rack • 8 ms Grid Bound</span>
                         </div>
-                        <div class="registry-row" onclick="loadPreset('nvidia')">
+                        <div class="registry-row" onclick="loadRegistryCluster(90, 4, 110, 'Node')">
                             <span class="registry-name">SPAN XFRA Distributed Edge Deployment</span>
                             <span class="registry-spec">90 Nodes • 4 kW • 110 ms Distributed</span>
                         </div>
-                        <div class="registry-row" onclick="loadPreset('mesh')">
+                        <div class="registry-row" onclick="loadRegistryCluster(90, 4, 22, 'Node')">
                             <span class="registry-name">MESH Topology Lab Simulation</span>
                             <span class="registry-spec">90 Nodes • 4 kW • 22 ms Clustered</span>
                         </div>
@@ -537,26 +537,27 @@
     </div>
 
     <script>
+
+        // Keep track of the active infrastructure classification
+        let currentUnitType = 'Rack'; // 'Rack' for Hyperscale, 'Node' for Edge
+
         function calculatePhysics() {
             const nodes = parseInt(document.getElementById('input-nodes').value);
             const power = parseInt(document.getElementById('input-power').value);
             const radius = parseInt(document.getElementById('input-radius').value);
 
+            // Dynamic Label Toggling based on infrastructure type
             document.getElementById('val-nodes').innerText = nodes;
-            document.getElementById('val-power').innerText = power + " kW";
+            document.getElementById('val-power').innerText = power + (currentUnitType === 'Rack' ? " kW/rack" : " kW");
             document.getElementById('val-radius').innerText = radius + " ms";
 
             let arch = 'standard';
             const activeBtn = document.querySelector('.btn-preset.active');
             if (activeBtn) {
                 const btnText = activeBtn.innerText.toLowerCase();
-                if (btnText.includes('mesh')) {
-                    arch = 'mesh';
-                } else if (btnText.includes('tesla')) {
-                    arch = 'tesla';
-                } else if (btnText.includes('nvidia')) {
-                    arch = 'nvidia';
-                }
+                if (btnText.includes('mesh')) arch = 'mesh';
+                else if (btnText.includes('tesla')) arch = 'tesla';
+                else if (btnText.includes('nvidia')) arch = 'nvidia';
             }
 
             // 1. Latency Calculations
@@ -584,12 +585,9 @@
             thermalEff = Math.max(Math.min(Math.round(thermalEff), 99), 45);
             document.getElementById('metric-efficiency').innerText = thermalEff + "%";
 
-            // 3. NEW: THE TEO INDEX FORMULA VALUE (𝒯)
-            // Evaluates configuration efficiency: High Node Power / (Latency * Cooling Penalty)
+            // 3. Proprietary TEO Index Formula (𝒯)
             const coolingPenalty = (100 - thermalEff) / 10;
             let teoIndex = (nodes * power) / (finalLatency * (coolingPenalty || 1));
-            
-            // Boost factor for proprietary routing topologies
             if (arch === 'mesh') teoIndex *= 4.5; 
             
             const indexMetric = document.getElementById('metric-tco');
@@ -602,76 +600,121 @@
                 indexMetric.className = "metric-val status-alert";
             }
 
-            // 4. Graphical Rendering Pipeline
+            // 4. Graphical Rendering Pipeline (Fixes the overlapping bug in your screenshot)
             const canvas = document.getElementById('canvas-nodes');
             if (canvas) {
                 const currentSatellites = canvas.querySelectorAll('.satellite-node');
                 currentSatellites.forEach(n => n.remove());
 
-                for (let i = 0; i < nodes; i++) {
-                    const node = document.createElement('div');
-                    node.className = 'satellite-node';
-                    
-                    const angle = (i * 2 * Math.PI) / nodes;
-                    const visualDistance = Math.min(20 + (radius * 0.5), 90); 
-                    
-                    let xOffset = Math.cos(angle) * visualDistance;
-                    let yOffset = Math.sin(angle) * visualDistance;
+                if (currentUnitType === 'Rack') {
+                    // FIX: Render Hyperscale Datacenters as a clean physical server floor layout (Grid array)
+                    const columns = Math.ceil(Math.sqrt(nodes));
+                    const spacing = 14; 
+                    const startX = -((columns - 1) * spacing) / 2;
+                    const startY = -((Math.ceil(nodes / columns) - 1) * spacing) / 2;
 
-                    if (arch === 'mesh') {
-                        const clusterId = Math.floor(i / 5);
-                        const totalClusters = Math.ceil(nodes / 5);
-                        const clusterAngle = (clusterId * 2 * Math.PI) / totalClusters;
+                    for (let i = 0; i < nodes; i++) {
+                        const node = document.createElement('div');
+                        node.className = 'satellite-node';
                         
-                        const clusterX = Math.cos(clusterAngle) * visualDistance;
-                        const clusterY = Math.sin(clusterAngle) * visualDistance;
+                        const col = i % columns;
+                        const row = Math.floor(i / columns);
                         
-                        const localAngle = ((i % 5) * 2 * Math.PI) / 5;
-                        xOffset = clusterX + (Math.cos(localAngle) * 7);
-                        yOffset = clusterY + (Math.sin(localAngle) * 7);
-                        
-                        node.style.background = '#3b82f6'; 
-                        node.style.boxShadow = '0 0 8px #3b82f6';
-                    } else {
-                        if (power > 50) {
-                            node.style.background = '#ef4444'; 
-                            node.style.boxShadow = '0 0 6px #ef4444';
-                        } else if (radius > 70) {
-                            node.style.background = '#eab308'; 
-                            node.style.boxShadow = '0 0 4px #eab308';
-                        } else {
-                            node.style.background = '#ffffff';
-                        }
+                        const xOffset = startX + (col * spacing);
+                        const yOffset = startY + (row * spacing);
+
+                        // Pure infrastructure high-density coloring
+                        node.style.background = power > 80 ? '#ef4444' : '#22c55e';
+                        node.style.boxShadow = `0 0 6px ${node.style.background}`;
+                        node.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+                        canvas.appendChild(node);
                     }
+                } else {
+                    // Render Wide-Area/Edge Networks as Topographical Circles
+                    for (let i = 0; i < nodes; i++) {
+                        const node = document.createElement('div');
+                        node.className = 'satellite-node';
+                        
+                        const angle = (i * 2 * Math.PI) / nodes;
+                        const visualDistance = Math.min(20 + (radius * 0.5), 90); 
+                        
+                        let xOffset = Math.cos(angle) * visualDistance;
+                        let yOffset = Math.sin(angle) * visualDistance;
 
-                    node.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-                    canvas.appendChild(node);
+                        if (arch === 'mesh') {
+                            const clusterId = Math.floor(i / 5);
+                            const totalClusters = Math.ceil(nodes / 5);
+                            const clusterAngle = (clusterId * 2 * Math.PI) / totalClusters;
+                            
+                            const clusterX = Math.cos(clusterAngle) * visualDistance;
+                            const clusterY = Math.sin(clusterAngle) * visualDistance;
+                            
+                            const localAngle = ((i % 5) * 2 * Math.PI) / 5;
+                            xOffset = clusterX + (Math.cos(localAngle) * 7);
+                            yOffset = clusterY + (Math.sin(localAngle) * 7);
+                            
+                            node.style.background = '#3b82f6'; 
+                            node.style.boxShadow = '0 0 8px #3b82f6';
+                        } else {
+                            node.style.background = radius > 70 ? '#eab308' : '#ffffff';
+                            if (radius > 70) node.style.boxShadow = '0 0 4px #eab308';
+                        }
+
+                        node.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+                        canvas.appendChild(node);
+                    }
                 }
+            }
+        }
+
+        // Global label updater layer
+        function setLabelContext(unitType) {
+            currentUnitType = unitType;
+            const labels = {
+                Rack: ["Total Cluster Racks", "Individual Rack Power Allocation", "Inter-Rack Physical Distance (Latency)"],
+                Node: ["Total Cluster Nodes", "Individual Node Power Allocation", "Inter-Node Physical Radius (Latency Distance)"]
+            };
+            
+            const wrappers = document.querySelectorAll('.slider-wrapper .slider-label span:first-child');
+            if (wrappers.length >= 3) {
+                wrappers[0].innerText = labels[unitType][0];
+                wrappers[1].innerText = labels[unitType][1];
+                wrappers[2].innerText = labels[unitType][2];
             }
         }
 
         function loadPreset(key) {
             const presetConfigs = {
-                nvidia: { nodes: 90, power: 4, radius: 110 },
-                tesla: { nodes: 12, power: 85, radius: 15 },
-                mesh: { nodes: 90, power: 4, radius: 110 }
+                nvidia: { nodes: 90, power: 4, radius: 110, unit: 'Node' },
+                tesla: { nodes: 12, power: 85, radius: 15, unit: 'Rack' },
+                mesh: { nodes: 90, power: 4, radius: 22, unit: 'Node' }
             };
 
             const buttons = document.querySelectorAll('.btn-preset');
             buttons.forEach(btn => {
                 const onClickAttr = btn.getAttribute('onclick') || '';
-                if (onClickAttr.includes(key)) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
+                if (onClickAttr.includes(key)) btn.classList.add('active');
+                else btn.classList.remove('active');
             });
 
-            const config = presetConfigs[key] || { nodes: 20, power: 15, radius: 30 };
+            const config = presetConfigs[key] || { nodes: 20, power: 15, radius: 30, unit: 'Node' };
             
+            setLabelContext(config.unit);
             document.getElementById('input-nodes').value = config.nodes;
             document.getElementById('input-power').value = config.power;
             document.getElementById('input-radius').value = config.radius;
+
+            calculatePhysics();
+        }
+
+        function loadRegistryCluster(nodes, power, radius, unitType) {
+            const buttons = document.querySelectorAll('.btn-preset');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            setLabelContext(unitType);
+            document.getElementById('input-nodes').value = nodes;
+            document.getElementById('input-power').value = power;
+            document.getElementById('input-radius').value = radius;
 
             calculatePhysics();
         }
