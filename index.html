@@ -537,164 +537,136 @@
     </div>
 
     <script>
+        // High-signal calculation engine for cluster topologies
         function calculatePhysics() {
+            // 1. Capture Raw Inputs from your existing slider IDs
             const nodes = parseInt(document.getElementById('input-nodes').value);
             const power = parseInt(document.getElementById('input-power').value);
             const radius = parseInt(document.getElementById('input-radius').value);
 
+            // Update basic text readouts next to your sliders
             document.getElementById('val-nodes').innerText = nodes;
             document.getElementById('val-power').innerText = power + " kW";
             document.getElementById('val-radius').innerText = radius + " ms";
 
-            let arch = 'standard';
+            // Determine active architectural profile to adjust physical boundaries
+            let activeArch = 'manual';
             const activeBtn = document.querySelector('.btn-preset.active');
             if (activeBtn) {
-                const btnText = activeBtn.innerText.toLowerCase();
-                if (btnText.includes('mesh')) {
-                    arch = 'mesh';
-                } else if (btnText.includes('tesla')) {
-                    arch = 'tesla';
-                } else if (btnText.includes('nvidia')) {
-                    arch = 'nvidia';
-                }
+                const txt = activeBtn.innerText.toLowerCase();
+                if (txt.includes('mesh')) activeArch = 'mesh';
+                else if (txt.includes('megapod')) activeArch = 'megapod';
+                else if (txt.includes('span')) activeArch = 'span';
             }
 
-            // 1. Latency Calculations
-            const baseLatency = radius;
-            const concurrencyOverhead = Math.log2(nodes) * 4; 
-            let finalLatency = Math.round(baseLatency + concurrencyOverhead);
+            // 2. Physical Modeling Logic
+            // Compute true cluster capacity scaling
+            const absolutePowerMW = (nodes * power) / 1000;
 
-            if (arch === 'mesh') {
-                finalLatency = Math.round((baseLatency * 0.15) + (concurrencyOverhead * 0.2));
+            // Calculate real-world sync penalty: physical distance + communication network hop steps
+            const networkHopsPenalty = Math.log2(nodes) * 2.5; 
+            let finalSyncOverhead = Math.round(radius + networkHopsPenalty);
+
+            // Mesh optimization factor: localized edge peer routing reduces the physical wide-area penalty
+            if (activeArch === 'mesh') {
+                finalSyncOverhead = Math.max(2, Math.round((radius * 0.2) + (networkHopsPenalty * 0.4)));
             }
 
-            document.getElementById('metric-latency').innerText = finalLatency + " ms";
+            // Thermal dissipation profile estimation based on concentration metrics
+            let thermalEfficiency = 100 - (power * 0.25) - (nodes * 0.02);
+            if (activeArch === 'megapod') thermalEfficiency += 5; // Account for integrated containerized liquid loop cooling offsets
+            thermalEfficiency = Math.max(Math.min(Math.round(thermalEfficiency), 98), 50);
 
-            const latencyMetric = document.getElementById('metric-latency');
-            if (finalLatency > 80) {
-                latencyMetric.className = "metric-val status-alert";
-            } else if (finalLatency > 40) {
-                latencyMetric.className = "metric-val status-warn";
-            } else {
-                latencyMetric.className = "metric-val status-good";
-            }
-
-            // 2. Thermal Efficiency Calculations
-            let thermalEff = 100 - (power * 0.3) - (nodes * 0.05);
-            thermalEff = Math.max(Math.min(Math.round(thermalEff), 99), 45);
-            document.getElementById('metric-efficiency').innerText = thermalEff + "%";
-
-            // 3. NEW: THE TEO INDEX FORMULA VALUE (𝒯)
-            // Evaluates configuration efficiency: High Node Power / (Latency * Cooling Penalty)
-            const coolingPenalty = (100 - thermalEff) / 10;
-            let teoIndex = (nodes * power) / (finalLatency * (coolingPenalty || 1));
+            // 3. Formulate the Structural TEO Index (𝒯)
+            const latencyCostFactor = finalSyncOverhead / 20;
+            let teoIndex = (nodes * power) / (finalSyncOverhead * (1 + (100 - thermalEfficiency) / 100));
             
-            // Boost factor for proprietary routing topologies
-            if (arch === 'mesh') teoIndex *= 4.5; 
-            
-            const indexMetric = document.getElementById('metric-tco');
-            indexMetric.innerText = teoIndex.toFixed(1);
-            if (teoIndex > 15) {
-                indexMetric.className = "metric-val status-good";
-            } else if (teoIndex > 5) {
-                indexMetric.className = "metric-val status-warn";
+            // Scale index cleanly for presentation consistency
+            teoIndex = teoIndex * 0.8; 
+
+            // 4. Dom UI Mapping Layout Writes
+            document.getElementById('metric-latency').innerText = finalSyncOverhead + " ms";
+            document.getElementById('metric-efficiency').innerText = thermalEfficiency + "%";
+            document.getElementById('metric-tco').innerText = teoIndex.toFixed(1);
+
+            // Dynamic UI color code state adjustments based on engineering limits
+            const indexElement = document.getElementById('metric-tco');
+            if (teoIndex > 120) {
+                indexElement.style.color = "#10b981"; // Optimal configuration
+            } else if (teoIndex > 50) {
+                indexElement.style.color = "#f59e0b"; // Borderline performance scaling bottlenecks
             } else {
-                indexMetric.className = "metric-val status-alert";
+                indexElement.style.color = "#ef4444"; // Major architectural degradation
             }
 
-            // 4. Graphical Rendering Pipeline
+            // 5. Visual Cluster Token Matrix Renderer
             const canvas = document.getElementById('canvas-nodes');
             if (canvas) {
-                const currentSatellites = canvas.querySelectorAll('.satellite-node');
-                currentSatellites.forEach(n => n.remove());
+                // Clear previous canvas child tokens cleanly
+                const existingNodes = canvas.querySelectorAll('.satellite-node');
+                existingNodes.forEach(n => n.remove());
 
-                for (let i = 0; i < nodes; i++) {
-                    const node = document.createElement('div');
-                    node.className = 'satellite-node';
-                    
-                    const angle = (i * 2 * Math.PI) / nodes;
-                    const visualDistance = Math.min(20 + (radius * 0.5), 90); 
-                    
-                    let xOffset = Math.cos(angle) * visualDistance;
-                    let yOffset = Math.sin(angle) * visualDistance;
+                // Cap actual rendered nodes to protect system performance
+                const renderCount = Math.min(nodes, 120);
 
-                    if (arch === 'mesh') {
-                        const clusterId = Math.floor(i / 5);
-                        const totalClusters = Math.ceil(nodes / 5);
-                        const clusterAngle = (clusterId * 2 * Math.PI) / totalClusters;
+                for (let i = 0; i < renderCount; i++) {
+                    const nodeToken = document.createElement('div');
+                    nodeToken.className = 'satellite-node';
+
+                    if (activeArch === 'mesh') {
+                        // Hierarchical Cell Clustered Rendering Ring (as seen in your screen captures)
+                        const totalCells = Math.ceil(renderCount / 6);
+                        const cellId = Math.floor(i / 6);
+                        const cellAngle = (cellId * 2 * Math.PI) / totalCells;
                         
-                        const clusterX = Math.cos(clusterAngle) * visualDistance;
-                        const clusterY = Math.sin(clusterAngle) * visualDistance;
+                        const visualRadius = Math.min(30 + (radius * 0.4), 95);
+                        const cellCenterX = Math.cos(cellAngle) * visualRadius;
+                        const cellCenterY = Math.sin(cellAngle) * visualRadius;
                         
-                        const localAngle = ((i % 5) * 2 * Math.PI) / 5;
-                        xOffset = clusterX + (Math.cos(localAngle) * 7);
-                        yOffset = clusterY + (Math.sin(localAngle) * 7);
-                        
-                        node.style.background = '#3b82f6'; 
-                        node.style.boxShadow = '0 0 8px #3b82f6';
+                        const localAngle = ((i % 6) * 2 * Math.PI) / 6;
+                        const nodeX = cellCenterX + (Math.cos(localAngle) * 6);
+                        const nodeY = cellCenterY + (Math.sin(localAngle) * 6);
+
+                        nodeToken.style.background = '#2563eb';
+                        nodeToken.style.boxShadow = '0 0 6px rgba(37, 99, 235, 0.6)';
+                        nodeToken.style.transform = `translate(${nodeX}px, ${nodeY}px)`;
+
                     } else {
-                        if (power > 50) {
-                            node.style.background = '#ef4444'; 
-                            node.style.boxShadow = '0 0 6px #ef4444';
-                        } else if (radius > 70) {
-                            node.style.background = '#eab308'; 
-                            node.style.boxShadow = '0 0 4px #eab308';
-                        } else {
-                            node.style.background = '#ffffff';
-                        }
+                        // Classical Distributed Core Topology (Ring Expansions)
+                        const angle = (i * 2 * Math.PI) / renderCount;
+                        const visualRadius = Math.min(25 + (radius * 0.5), 100);
+                        
+                        const nodeX = Math.cos(angle) * visualRadius;
+                        const nodeY = Math.sin(angle) * visualRadius;
+
+                        nodeToken.style.background = finalSyncOverhead > 60 ? '#f59e0b' : '#ffffff';
+                        nodeToken.style.transform = `translate(${nodeX}px, ${nodeY}px)`;
                     }
 
-                    node.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-                    canvas.appendChild(node);
+                    canvas.appendChild(nodeToken);
                 }
             }
         }
 
-        function loadPreset(key) {
-            const presetConfigs = {
-                nvidia: { nodes: 90, power: 4, radius: 110 },
-                tesla: { nodes: 12, power: 85, radius: 15 },
-                mesh: { nodes: 90, power: 4, radius: 110 }
+        // Preset Routing Layer
+        function loadPreset(presetKey) {
+            const configs = {
+                span: { nodes: 90, power: 4, radius: 110 },
+                megapod: { nodes: 32, power: 90, radius: 8 },
+                mesh: { nodes: 90, power: 4, radius: 22 }
             };
 
-            const buttons = document.querySelectorAll('.btn-preset');
-            buttons.forEach(btn => {
-                const onClickAttr = btn.getAttribute('onclick') || '';
-                if (onClickAttr.includes(key)) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
+            const target = configs[presetKey];
+            if (!target) return;
 
-            const config = presetConfigs[key] || { nodes: 20, power: 15, radius: 30 };
-            
-            document.getElementById('input-nodes').value = config.nodes;
-            document.getElementById('input-power').value = config.power;
-            document.getElementById('input-radius').value = config.radius;
+            // Update raw input elements directly to trigger matching visual states
+            document.getElementById('input-nodes').value = target.nodes;
+            document.getElementById('input-power').value = target.power;
+            document.getElementById('input-radius').value = target.radius;
 
             calculatePhysics();
         }
-
-        // NEW: Handles direct entries loaded via raw row clicks in directory
-        function loadRealWorldCluster(nodes, power, radius) {
-            const buttons = document.querySelectorAll('.btn-preset');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            document.getElementById('btn-custom-manual')?.classList.add('active'); // revert focus to custom
-
-            document.getElementById('input-nodes').value = nodes;
-            document.getElementById('input-power').value = power;
-            document.getElementById('input-radius').value = radius;
-
-            calculatePhysics();
-        }
-        
-        // Map programmatic rows seamlessly to index values
-        function loadRegistryCluster(n, p, r) {
-            loadRealWorldCluster(n, p, r);
-        }
-
-        calculatePhysics();
-    </script>
+   
+   </script>
 </body>
 </html>
