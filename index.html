@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Electric Outlet — Infrastructure Node Lab</title>
+    <title>The Electric Outlet — Frontier Topology Lab</title>
     
     <link rel="icon" type="image/png" href="logo_icon.png">
     
@@ -15,7 +15,7 @@
             --text-primary: #f4f4f5;
             --text-secondary: #a1a1aa;
             --accent-blue: #3b82f6;
-            --accent-glow: rgba(59, 130, 246, 0.2);
+            --accent-mesh: #3b82f6;
         }
 
         body {
@@ -36,37 +36,11 @@
             gap: 32px;
         }
 
-        /* BRANDING HEADER SYSTEM */
-        .brand-header {
+        header {
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 24px;
         }
 
-        .logo-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0 0 8px 0;
-            letter-spacing: -0.03em;
-            display: flex;
-            align-items: center;
-            gap: 2px;
-        }
-
-        .logo-bolt {
-            color: var(--accent-blue);
-            font-style: italic;
-            font-weight: 800;
-        }
-
-        .brand-subtitle {
-            color: var(--text-secondary);
-            font-size: 13px;
-            margin: 0;
-            max-width: 800px;
-            line-height: 1.5;
-        }
-
-        /* INTERACTIVE LAYOUT MATRIX */
         .workspace-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -74,9 +48,7 @@
         }
 
         @media (min-width: 950px) {
-            .workspace-grid {
-                grid-template-columns: 1.2fr 1fr;
-            }
+            .workspace-grid { grid-template-columns: 1.2fr 1fr; }
         }
 
         .panel-container {
@@ -100,12 +72,7 @@
             margin: 0;
         }
 
-        /* CONTROL PRESET INTERACTION CARDS */
-        .preset-flex {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+        .preset-flex { display: flex; gap: 10px; flex-wrap: wrap; }
 
         .preset-tab {
             background: #16161a;
@@ -118,10 +85,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.15s ease;
         }
 
-        .preset-tab:hover { border-color: var(--text-secondary); }
         .preset-tab.active { 
             border-color: var(--accent-blue); 
             background: rgba(59, 130, 246, 0.08); 
@@ -129,18 +94,8 @@
 
         .indicator-dot { width: 7px; height: 7px; border-radius: 50%; }
 
-        /* CONTROL SLIDERS UI ELEMENTS */
-        .slider-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .slider-meta-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-        }
+        .slider-group { display: flex; flex-direction: column; gap: 8px; }
+        .slider-meta-row { display: flex; justify-content: space-between; font-size: 12px; }
 
         input[type="range"] {
             width: 100%;
@@ -151,11 +106,11 @@
             border-radius: 2px;
         }
 
-        /* VISUAL HARDWARE COUPLING CANVAS */
+        /* HARDWARE SPATIAL CANVAS */
         .topography-box {
             background: #08080a;
             border: 1px solid var(--border-color);
-            height: 220px;
+            height: 240px;
             border-radius: 6px;
             position: relative;
             display: flex;
@@ -174,15 +129,13 @@
 
         .hardware-dot {
             position: absolute;
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: var(--accent-blue);
-            box-shadow: 0 0 6px var(--accent-blue);
-            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* RE-ENGINEERED ANALYTICAL READOUTS */
         .readout-bar {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -200,12 +153,7 @@
         .readout-number { font-size: 18px; font-weight: 700; color: #ffffff; }
         .readout-label { font-size: 10px; color: var(--text-secondary); text-transform: uppercase; margin-top: 4px; }
 
-        /* TELEMETRY ENGINE DIRECTORY LIST */
-        .directory-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+        .directory-stack { display: flex; flex-direction: column; gap: 10px; }
 
         .directory-card {
             background: #141417;
@@ -216,7 +164,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.15s ease;
         }
 
         .directory-card:hover { border-color: var(--text-secondary); background: #17171c; }
@@ -224,7 +171,6 @@
         .dir-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
         .dir-spec-block { font-family: monospace; font-size: 12px; text-align: right; }
 
-        /* FOOTER BRAND CONNECTIONS */
         .footer-pipeline {
             display: flex;
             justify-content: space-between;
@@ -235,23 +181,18 @@
             font-size: 11px;
         }
 
-        .legacy-link {
-            color: var(--text-primary);
-            text-decoration: none;
-            border-bottom: 1px solid var(--text-secondary);
-        }
-        .legacy-link:hover { color: var(--accent-blue); border-color: var(--accent-blue); }
+        .legacy-link { color: var(--text-primary); text-decoration: none; border-bottom: 1px solid var(--text-secondary); }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <header style="border-bottom: 1px solid var(--border-color); padding-bottom: 24px; margin-bottom: 32px;">
+        <header>
             <div style="margin-bottom: 12px;">
                 <img src="full_logo_color.png" alt="The Electric Outlet" style="height: 32px; width: auto; display: block;">
             </div>
             <p style="color: var(--text-secondary); font-size: 13px; margin: 0; max-width: 800px; line-height: 1.5;">
-                Independent mapping, physical scaling simulations, and operational teardowns across macro utility grids and frontier distributed AI clusters.
+                Independent mapping, physical scaling simulations, and operational validation tools for high-density edge topologies vs centralized datacenters.
             </p>
         </header>
 
@@ -262,40 +203,32 @@
                 
                 <div class="preset-flex">
                     <button class="preset-tab active" id="tab-custom" onclick="routePresetContext('custom')">🛠️ Custom Manual</button>
-                    <button class="preset-tab" id="tab-xai" onclick="routePresetContext('xai')"><span class="indicator-dot" style="background:var(--accent-blue);"></span> xAI Colossus</button>
-                    <button class="preset-tab" id="tab-aws" onclick="routePresetContext('aws')"><span class="indicator-dot" style="background:#10b981;"></span> AWS Constellation</button>
+                    <button class="preset-tab" id="tab-centralized" onclick="routePresetContext('centralized')"><span class="indicator-dot" style="background:#ef4444;"></span> Centralized Hyperscale</button>
+                    <button class="preset-tab" id="tab-mesh" onclick="routePresetContext('mesh')"><span class="indicator-dot" style="background:var(--accent-blue);"></span> MESH Net Topology</button>
                 </div>
 
                 <div class="slider-group">
                     <div class="slider-meta-row">
-                        <span>Total Hardware Racks</span>
-                        <span id="lbl-racks" style="font-weight:600;">100</span>
+                        <span>Total Edge Cluster Nodes</span>
+                        <span id="lbl-nodes" style="font-weight:600;">90</span>
                     </div>
-                    <input type="range" id="field-racks" min="10" max="4000" step="10" value="100" oninput="processClusterPhysics()">
+                    <input type="range" id="field-nodes" min="12" max="150" step="6" value="90" oninput="processClusterPhysics()">
                 </div>
 
                 <div class="slider-group">
                     <div class="slider-meta-row">
-                        <span>Compute Density (Nodes per Rack)</span>
-                        <span id="lbl-nodes" style="font-weight:600;">32</span>
+                        <span>Basement Thermal Co-Generation Limit</span>
+                        <span id="lbl-power" style="font-weight:600;">4 kW</span>
                     </div>
-                    <input type="range" id="field-nodes" min="8" max="72" step="8" value="32" oninput="processClusterPhysics()">
+                    <input type="range" id="field-power" min="4" max="120" step="4" value="4" oninput="processClusterPhysics()">
                 </div>
 
                 <div class="slider-group">
                     <div class="slider-meta-row">
-                        <span>Continuous Power Allocation</span>
-                        <span id="lbl-power" style="font-weight:600;">55 kW</span>
+                        <span>Inter-Node WAN Physical Radius</span>
+                        <span id="lbl-latency" style="font-weight:600;">22 ms</span>
                     </div>
-                    <input type="range" id="field-power" min="15" max="150" step="5" value="55" oninput="processClusterPhysics()">
-                </div>
-
-                <div class="slider-group">
-                    <div class="slider-meta-row">
-                        <span>Inter-Rack Fabric Latency</span>
-                        <span id="lbl-latency" style="font-weight:600;">2 ms</span>
-                    </div>
-                    <input type="range" id="field-latency" min="1" max="50" step="1" value="2" oninput="processClusterPhysics()">
+                    <input type="range" id="field-latency" min="2" max="120" step="2" value="22" oninput="processClusterPhysics()">
                 </div>
 
                 <div class="topography-box">
@@ -305,43 +238,43 @@
 
                 <div class="readout-bar">
                     <div class="readout-card">
-                        <div class="readout-number" id="read-mw">--</div>
-                        <div class="readout-label">Calculated IT Draw</div>
-                    </div>
-                    <div class="readout-card">
-                        <div class="readout-number" id="read-nodes">--</div>
-                        <div class="readout-label">Aggregate GPUs</div>
-                    </div>
-                    <div class="readout-card">
                         <div class="readout-number" id="read-index">--</div>
-                        <div class="readout-label">TEO Cluster Index</div>
+                        <div class="readout-label">TEO Index (𝒯)</div>
+                    </div>
+                    <div class="readout-card">
+                        <div class="readout-number" id="read-overhead">--</div>
+                        <div class="readout-label">Sync Overhead</div>
+                    </div>
+                    <div class="readout-card">
+                        <div class="readout-number" id="read-thermal">--</div>
+                        <div class="readout-label">Thermal Efficiency</div>
                     </div>
                 </div>
             </div>
 
             <div class="panel-container">
-                <p class="panel-tag">📁 Global Cluster Blueprint Directory</p>
+                <p class="panel-tag">📁 Architecture Verification Index</p>
                 
                 <div class="directory-stack">
-                    <div class="directory-card" onclick="syncCardDataToSandbox(3120, 32, 80, 1, 'xai')">
+                    <div class="directory-card" onclick="syncCardDataToSandbox(90, 4, 22, 'mesh')">
                         <div>
-                            <div class="dir-title">xAI Colossus Cluster Core (Memphis, TN)</div>
-                            <div class="dir-sub">Liquid-cooled cluster layout running independent network ranks.</div>
+                            <div class="dir-title">MESH Architecture Model</div>
+                            <div class="dir-sub">Distributed hotel basement grids exchanging hardware load offsets for direct facility hot water loops.</div>
                         </div>
                         <div class="dir-spec-block">
-                            <div>3,120 Racks</div>
-                            <div style="color:var(--text-secondary); font-size:11px; margin-top:2px;">80 kW/rack • 1ms</div>
+                            <div style="color:var(--accent-blue);">95% Match</div>
+                            <div style="color:var(--text-secondary); font-size:11px; margin-top:2px;">Cell Clustered</div>
                         </div>
                     </div>
 
-                    <div class="directory-card" onclick="syncCardDataToSandbox(1250, 72, 120, 4, 'aws')">
+                    <div class="directory-card" onclick="syncCardDataToSandbox(120, 90, 4, 'centralized')">
                         <div>
-                            <div class="dir-title">AWS Constellation (Susquehanna Nuclear Site)</div>
-                            <div class="dir-sub">High-density liquid loops tied directly to carbon-free base grids.</div>
+                            <div class="dir-title">Centralized Monolithic Block</div>
+                            <div class="dir-sub">High localized power draw forcing rapid macro infrastructure additions and massive utility interconnection bottlenecks.</div>
                         </div>
                         <div class="dir-spec-block">
-                            <div>1,250 Racks</div>
-                            <div style="color:var(--text-secondary); font-size:11px; margin-top:2px;">120 kW/rack • 4ms</div>
+                            <div style="color:#ef4444;">High Overhead</div>
+                            <div style="color:var(--text-secondary); font-size:11px; margin-top:2px;">Flat Grid Ring</div>
                         </div>
                     </div>
                 </div>
@@ -356,93 +289,111 @@
 
     <script>
         function processClusterPhysics() {
-            // Ingest input parameters safely
-            const racks = parseInt(document.getElementById('field-racks').value);
-            const nodesPerRack = parseInt(document.getElementById('field-nodes').value);
-            const powerDraw = parseInt(document.getElementById('field-power').value);
-            const internalLatency = parseInt(document.getElementById('field-latency').value);
+            const nodes = parseInt(document.getElementById('field-nodes').value);
+            const power = parseInt(document.getElementById('field-power').value);
+            const radius = parseInt(document.getElementById('field-latency').value);
 
-            // Dynamic text transformations
-            document.getElementById('lbl-racks').innerText = racks.toLocaleString();
-            document.getElementById('lbl-nodes').innerText = nodesPerRack + " GPUs";
-            document.getElementById('lbl-power').innerText = powerDraw + " kW";
-            document.getElementById('lbl-latency').innerText = internalLatency + " ms";
+            document.getElementById('lbl-nodes').innerText = nodes + " Nodes";
+            document.getElementById('lbl-power').innerText = power + " kW";
+            document.getElementById('lbl-latency').innerText = radius + " ms";
 
-            // 1. Structural Performance Evaluation Calculations
-            const aggregatedPowerMW = (racks * powerDraw) / 1000;
-            const totalGPUsCount = racks * nodesPerRack;
+            let currentTopology = 'custom';
+            const activeTab = document.querySelector('.preset-tab.active');
+            if (activeTab) {
+                if (activeTab.id.includes('mesh')) currentTopology = 'mesh';
+                if (activeTab.id.includes('centralized')) currentTopology = 'centralized';
+            }
 
-            const latencyFactorOverhead = internalLatency * (1 + (racks / 2400));
-            const calculatedTEOIndex = (totalGPUsCount * 0.05) / (latencyFactorOverhead || 1);
+            // 1. COMPLEX DISTRIBUTED NETWORK MATHEMATICS
+            let syncOverhead = Math.round(radius * 1.3 + (Math.log2(nodes) * 2));
+            let thermalEfficiency = Math.max(50, Math.min(98, Math.round(100 - (power * 0.35))));
 
-            // Map data models onto presentation nodes
-            document.getElementById('read-mw').innerText = aggregatedPowerMW.toFixed(2) + " MW";
-            document.getElementById('read-nodes').innerText = totalGPUsCount.toLocaleString();
-            document.getElementById('read-index').innerText = calculatedTEOIndex.toFixed(1);
+            if (currentTopology === 'mesh') {
+                // Hierarchical cell clusters significantly isolate global wide-area network propagation penalties
+                syncOverhead = Math.max(4, Math.round((radius * 0.25) + 3));
+                thermalEfficiency = Math.min(98, Math.round(thermalEfficiency + 15)); // Co-gen loop adds efficiency offsets
+            }
 
-            // 2. High-Density Spatial Coordinate Layout Canvas Pipeline
-            const matrixTarget = document.getElementById('spatial-canvas');
-            matrixTarget.innerHTML = ''; // Wipe trace configurations cleanly
+            let teoIndex = (nodes * 4) / (syncOverhead * (1 + (100 - thermalEfficiency)/100));
+            if (currentTopology === 'mesh') teoIndex *= 2.8; 
 
-            const visibleLimit = Math.min(racks, 140);
-            const columnsCount = Math.ceil(Math.sqrt(visibleLimit));
-            const pointSpacing = 10;
-            const startX = -((columnsCount - 1) * pointSpacing) / 2;
-            const startY = -((Math.ceil(visibleLimit / columnsCount) - 1) * pointSpacing) / 2;
+            document.getElementById('read-index').innerText = teoIndex.toFixed(1);
+            document.getElementById('read-overhead').innerText = syncOverhead + " ms";
+            document.getElementById('read-thermal').innerText = thermalEfficiency + "%";
 
-            for (let i = 0; i < visibleLimit; i++) {
+            // Color adjustments
+            const idxNode = document.getElementById('read-index');
+            if (currentTopology === 'mesh') idxNode.style.color = '#3b82f6';
+            else if (currentTopology === 'centralized') idxNode.style.color = '#ef4444';
+            else idxNode.style.color = '#ffffff';
+
+            // 2. DYNAMIC COORDINATE RING GENERATOR
+            const canvas = document.getElementById('spatial-canvas');
+            canvas.innerHTML = ''; 
+
+            const totalNodesToRender = Math.min(nodes, 120);
+
+            for (let i = 0; i < totalNodesToRender; i++) {
                 const nodeToken = document.createElement('div');
                 nodeToken.className = 'hardware-dot';
 
-                const col = i % columnsCount;
-                const row = Math.floor(i / columnsCount);
+                if (currentTopology === 'mesh') {
+                    // Mesh Topology Pattern: Concentrated distributed peer cell structures
+                    const totalClusters = Math.ceil(totalNodesToRender / 6);
+                    const currentClusterIndex = Math.floor(i / 6);
+                    const clusterAngle = (currentClusterIndex * 2 * Math.PI) / totalClusters;
+                    
+                    const clusterRadius = 75;
+                    const cX = Math.cos(clusterAngle) * clusterRadius;
+                    const cY = Math.sin(clusterAngle) * clusterRadius;
+                    
+                    const localAngle = ((i % 6) * 2 * Math.PI) / 6;
+                    const localRadius = 10;
+                    const x = cX + Math.cos(localAngle) * localRadius;
+                    const y = cY + Math.sin(localAngle) * localRadius;
 
-                const x = startX + (col * pointSpacing);
-                const y = startY + (row * pointSpacing);
-
-                // Thermal alert mapping thresholds
-                if (powerDraw >= 110) {
-                    nodeToken.style.background = '#ef4444';
-                    nodeToken.style.boxShadow = '0 0 6px #ef4444';
-                } else if (powerDraw >= 65) {
-                    nodeToken.style.background = 'var(--accent-blue)';
-                    nodeToken.style.boxShadow = '0 0 6px var(--accent-blue)';
+                    nodeToken.style.background = '#3b82f6';
+                    nodeToken.style.boxShadow = '0 0 6px rgba(59, 130, 246, 0.7)';
+                    nodeToken.style.transform = `translate(${x}px, ${y}px)`;
                 } else {
-                    nodeToken.style.background = '#71717a';
-                    nodeToken.style.boxShadow = 'none';
+                    // Centralized Topology Pattern: Flat continuous wide-area latency boundary loops
+                    const angle = (i * 2 * Math.PI) / totalNodesToRender;
+                    const continuousRadius = Math.max(30, Math.min(90, radius * 0.8 + 20));
+                    const x = Math.cos(angle) * continuousRadius;
+                    const y = Math.sin(angle) * continuousRadius;
+
+                    nodeToken.style.background = currentTopology === 'centralized' ? '#ef4444' : '#ffffff';
+                    nodeToken.style.boxShadow = currentTopology === 'centralized' ? '0 0 6px rgba(239, 68, 68, 0.5)' : 'none';
+                    nodeToken.style.transform = `translate(${x}px, ${y}px)`;
                 }
 
-                nodeToken.style.transform = `translate(${x}px, ${y}px)`;
-                matrixTarget.appendChild(nodeToken);
+                canvas.appendChild(nodeToken);
             }
         }
 
-        // Context tab state router management
         function routePresetContext(presetId) {
             document.querySelectorAll('.preset-tab').forEach(t => t.classList.remove('active'));
             document.getElementById(`tab-${presetId}`).classList.add('active');
 
-            if (presetId === 'xai') {
-                updateInputValues(3120, 32, 80, 1);
-            } else if (presetId === 'aws') {
-                updateInputValues(1250, 72, 120, 4);
+            if (presetId === 'mesh') {
+                updateInputValues(90, 4, 22);
+            } else if (presetId === 'centralized') {
+                updateInputValues(120, 90, 4);
             }
         }
 
-        function syncCardDataToSandbox(r, n, p, l, tabKey) {
+        function syncCardDataToSandbox(n, p, l, tabKey) {
             routePresetContext(tabKey);
-            updateInputValues(r, n, p, l);
+            updateInputValues(n, p, l);
         }
 
-        function updateInputValues(r, n, p, l) {
-            document.getElementById('field-racks').value = r;
+        function updateInputValues(n, p, l) {
             document.getElementById('field-nodes').value = n;
             document.getElementById('field-power').value = p;
             document.getElementById('field-latency').value = l;
             processClusterPhysics();
         }
 
-        // Automatically fire on execution lifecycle start
         processClusterPhysics();
     </script>
 </body>
