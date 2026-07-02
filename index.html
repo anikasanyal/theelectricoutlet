@@ -1,31 +1,27 @@
 <!DOCTYPE html>
-<html lang="en)
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="logo_icon.png">
     <title>The Electric Outlet — AI Infrastructure Lab</title>
     <style>
         :root {
             --bg-color: #0a0a0c;
-            --terminal-bg: #111115;
-            --text-primary: #e4e4e7;
-            --text-secondary: #a1a1aa;
+            --panel-bg: #111115;
+            --text-main: #e4e4e7;
+            --text-muted: #a1a1aa;
             --accent: #3b82f6;
-            --accent-dim: rgba(59, 130, 246, 0.1);
             --border: #27272a;
-            --success: #22c55e;
-            --warning: #eab308;
-            --danger: #ef4444;
         }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 13px;
             margin: 0;
             padding: 40px 20px;
+            line-height: 1.6;
         }
 
         .container {
@@ -34,46 +30,26 @@
         }
 
         header {
-            margin-bottom: 30px;
+            margin-bottom: 32px;
             border-bottom: 1px solid var(--border);
             padding-bottom: 20px;
         }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            margin-bottom: 16px;
-        }
+        h1 { font-size: 22px; margin: 0 0 6px 0; font-weight: 600; letter-spacing: -0.02em; }
+        .subtitle { color: var(--text-muted); margin: 0; font-size: 13px; }
 
-        .logo-image {
-            height: 28px;
-            width: auto;
-            display: block;
-        }
-
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin: 0;
-        }
-
-        /* Dual Pane Dashboard Layout */
-        .dashboard-layout {
+        .layout-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 24px;
-            margin-top: 20px;
         }
 
         @media (min-width: 900px) {
-            .dashboard-layout {
-                grid-template-columns: 1.2fr 1fr;
-            }
+            .layout-grid { grid-template-columns: 1.2fr 1fr; }
         }
 
-        /* Left Pane: Simulator Engine */
-        .simulator-pane {
-            background: var(--terminal-bg);
+        .pane {
+            background: var(--panel-bg);
             border: 1px solid var(--border);
             border-radius: 6px;
             padding: 24px;
@@ -82,83 +58,52 @@
             gap: 20px;
         }
 
-        .pane-title {
-            font-size: 14px;
+        .section-hdr {
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-primary);
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 700;
             margin: 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Preset Row Design */
+        .preset-row {
             display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .pane-title::before {
-            content: "";
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        /* Presets Button Array */
-        .presets-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
             gap: 10px;
         }
 
         .btn-preset {
             background: #18181b;
             border: 1px solid var(--border);
-            color: var(--text-secondary);
-            padding: 10px;
+            color: var(--text-main);
+            padding: 8px 14px;
             border-radius: 4px;
-            font-size: 12px;
             cursor: pointer;
-            text-align: left;
-            transition: all 0.2s ease;
-        }
-
-        .btn-preset:hover {
-            border-color: var(--text-secondary);
-            color: var(--text-primary);
-        }
-
-        .btn-preset.active {
-            border-color: var(--accent);
-            background: var(--accent-dim);
-            color: var(--accent);
-        }
-
-        /* Controls Section */
-        .control-group {
+            font-size: 12px;
             display: flex;
-            flex-direction: column;
-            gap: 12px;
-            background: #141419;
-            padding: 16px;
-            border-radius: 4px;
-            border: 1px solid #1f1f23;
+            align-items: center;
+            gap: 8px;
         }
 
+        .btn-preset:hover { border-color: var(--text-muted); }
+        .btn-preset.active { border-color: var(--accent); background: rgba(59, 130, 246, 0.1); }
+
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+        /* Sliders */
         .slider-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
         }
 
-        .slider-label {
-            font-size: 12px;
-            color: var(--text-secondary);
+        .slider-label-row {
             display: flex;
             justify-content: space-between;
-        }
-
-        .slider-label span:last-child {
-            font-family: monospace;
-            color: var(--text-primary);
+            font-size: 12px;
         }
 
         input[type="range"] {
@@ -166,507 +111,279 @@
             accent-color: var(--accent);
             background: var(--border);
             height: 4px;
+            outline: none;
             border-radius: 2px;
-            cursor: pointer;
         }
 
-        /* Visual Canvas Mock */
-        .canvas-container {
-            background: #09090b;
+        /* Topology Map Visualizer */
+        .canvas-wrapper {
+            background: #070709;
             border: 1px solid var(--border);
-            border-radius: 4px;
             height: 200px;
+            border-radius: 4px;
             position: relative;
-            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
 
-        .canvas-grid-bg {
+        .canvas-grid-overlay {
             position: absolute;
             inset: 0;
             background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
             background-size: 20px 20px;
-            opacity: 0.3;
-        }
-
-        /* Dynamic Visual Nodes Renderer */
-        .node-network {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .center-hub {
-            width: 12px;
-            height: 12px;
-            background: var(--accent);
-            border-radius: 50%;
-            box-shadow: 0 0 12px var(--accent);
-            z-index: 2;
+            opacity: 0.15;
         }
 
         .satellite-node {
             position: absolute;
-            width: 6px;
-            height: 6px;
-            background: var(--text-secondary);
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
-            transition: all 0.5s ease;
+            background: var(--accent);
+            box-shadow: 0 0 6px var(--accent);
+            transition: transform 0.2s ease;
         }
 
-        /* Real-time Output Metrics Display */
-        .metrics-grid {
+        /* Numerical Readouts */
+        .metrics-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            text-align: center;
+            gap: 12px;
         }
 
         .metric-card {
-            background: #141419;
+            background: #16161a;
             border: 1px solid var(--border);
-            padding: 10px;
+            padding: 14px;
             border-radius: 4px;
+            text-align: center;
         }
 
-        .metric-val {
-            font-family: monospace;
-            font-size: 16px;
-            font-weight: bold;
-            color: var(--text-primary);
-        }
+        .metric-num { font-size: 20px; font-weight: 700; color: #fff; }
+        .metric-lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; }
 
-        .metric-val.status-good { color: var(--success); }
-        .metric-val.status-warn { color: var(--warning); }
-        .metric-val.status-alert { color: var(--danger); }
-
-        .metric-lbl {
-            font-size: 10px;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
-
-        /* NEW: Infrastructure Registry List View */
-        .registry-section {
-            background: #141419;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 12px;
-        }
-
-        .registry-title {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 8px;
-            border-bottom: 1px solid #1f1f23;
-            padding-bottom: 4px;
-        }
-
-        .registry-list {
+        /* Blueprint Layout List */
+        .blueprint-list {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 10px;
         }
 
-        .registry-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            padding: 6px 8px;
-            border-radius: 3px;
-            cursor: pointer;
-            background: #18181b;
-            border: 1px solid transparent;
-            transition: all 0.15s ease;
-        }
-
-        .registry-row:hover {
-            border-color: #3f3f46;
-            background: #202024;
-        }
-
-        .registry-name {
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-
-        .registry-spec {
-            font-family: monospace;
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        /* Right Pane: Notes Feed */
-        .notes-pane {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .note-card {
-            background: var(--terminal-bg);
+        .blueprint-item {
+            background: #141417;
             border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 16px;
-            transition: border-color 0.2s ease;
-        }
-
-        .note-card:hover {
-            border-color: #3f3f46;
-        }
-
-        .note-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-            font-family: monospace;
-        }
-
-        .note-tag {
-            background: #1f1f23;
-            padding: 2px 6px;
-            border-radius: 3px;
-            color: var(--accent);
-        }
-
-        .note-card h3 {
-            margin: 0 0 8px 0;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .note-card p {
-            margin: 0 0 12px 0;
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-
-        .btn-load-model {
-            background: var(--accent-dim);
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            font-size: 11px;
-            padding: 4px 10px;
+            padding: 14px;
             border-radius: 4px;
             cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        .btn-load-model:hover {
-            background: var(--accent);
-            color: #ffffff;
-        }
-
-        footer {
-            margin-top: 60px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-            font-size: 12px;
-            color: var(--text-secondary);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        footer a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-        }
-
-        footer a:hover {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-        }
+        .blueprint-item:hover { border-color: var(--text-muted); background: #16161c; }
+        .bp-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+        .bp-spec { font-family: monospace; font-size: 12px; text-align: right; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <header>
-            <div class="logo-area">
-                <img src="full_logo_color.png" alt="The Electric Outlet" class="logo-image">
-            </div>
-            <p class="subtitle">Independent mapping, physical scaling simulations, and operational teardowns across macro utility grids and frontier distributed AI clusters.</p>
+            <h1>The Electric Outlet</h1>
+            <p class="subtitle">Frontier AI Infrastructure Hardware Scaling Simulator & Cluster Analyzer.</p>
         </header>
 
-        <div class="dashboard-layout">
+        <div class="layout-grid">
             
-            <div class="simulator-pane">
-                <div class="pane-title">Frontier Topology Sandbox Engine</div>
+            <div class="pane">
+                <div class="section-hdr">Frontier Topology Sandbox Engine</div>
                 
-                <div class="presets-row">
-                    <button class="btn-preset active" onclick="loadPreset('custom')">⚙️ Custom Manual</button>
-                    <button class="btn-preset" onclick="loadPreset('nvidia')">🟢 SPAN XFRA</button>
-                    <button class="btn-preset" onclick="loadPreset('tesla')">🔴 Tesla Megapod</button>
-                    <button class="btn-preset" onclick="loadPreset('mesh')">⚡ MESH Net</button>
+                <div class="preset-row">
+                    <button class="btn-preset active" id="preset-custom" onclick="activatePreset('custom')">🛠️ Custom Manual</button>
+                    <button class="btn-preset" id="preset-xai" onclick="activatePreset('xai')"><span class="status-dot" style="background:#3b82f6;"></span> xAI Colossus</button>
+                    <button class="btn-preset" id="preset-aws" onclick="activatePreset('aws')"><span class="status-dot" style="background:#10b981;"></span> AWS Constellation</button>
                 </div>
 
-                <div class="control-group">
-                    <div class="slider-wrapper">
-                        <div class="slider-label">
-                            <span>Total Cluster Nodes</span>
-                            <span id="val-nodes">20</span>
-                        </div>
-                        <input type="range" id="input-nodes" min="5" max="100" value="20" oninput="calculatePhysics()">
+                <div class="slider-wrapper">
+                    <div class="slider-label-row">
+                        <span>Total Deployable Racks</span>
+                        <span id="txt-racks">100</span>
                     </div>
-
-                    <div class="slider-wrapper">
-                        <div class="slider-label">
-                            <span>Individual Node Power Allocation</span>
-                            <span id="val-power">15 kW</span>
-                        </div>
-                        <input type="range" id="input-power" min="2" max="100" value="15" oninput="calculatePhysics()">
-                    </div>
-
-                    <div class="slider-wrapper">
-                        <div class="slider-label">
-                            <span>Inter-Node Physical Radius (Latency Distance)</span>
-                            <span id="val-radius">30 ms</span>
-                        </div>
-                        <input type="range" id="input-radius" min="1" max="150" value="30" oninput="calculatePhysics()">
-                    </div>
+                    <input type="range" id="range-racks" min="10" max="4000" step="10" value="100" oninput="runInfrastructurePhysics()">
                 </div>
 
-                <div class="canvas-container">
-                    <div class="canvas-grid-bg"></div>
-                    <div class="node-network" id="canvas-nodes">
-                        <div class="center-hub"></div>
+                <div class="slider-wrapper">
+                    <div class="slider-label-row">
+                        <span>Compute Density (GPUs per Rack)</span>
+                        <span id="txt-gpus">32</span>
                     </div>
+                    <input type="range" id="range-gpus" min="8" max="72" step="8" value="32" oninput="runInfrastructurePhysics()">
                 </div>
 
-                <div class="metrics-grid">
+                <div class="slider-wrapper">
+                    <div class="slider-label-row">
+                        <span>Power Allocation Per Rack</span>
+                        <span id="txt-power">55 kW</span>
+                    </div>
+                    <input type="range" id="range-power" min="15" max="140" step="5" value="55" oninput="runInfrastructurePhysics()">
+                </div>
+
+                <div class="slider-wrapper">
+                    <div class="slider-label-row">
+                        <span>Inter-Rack Baseline Fabric Latency</span>
+                        <span id="txt-latency">2 ms</span>
+                    </div>
+                    <input type="range" id="range-latency" min="1" max="40" step="1" value="2" oninput="runInfrastructurePhysics()">
+                </div>
+
+                <div class="canvas-wrapper">
+                    <div class="canvas-grid-overlay"></div>
+                    <div id="node-matrix" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;"></div>
+                </div>
+
+                <div class="metrics-container">
                     <div class="metric-card">
-                        <div class="metric-val" id="metric-tco">--</div>
-                        <div class="metric-lbl">TEO Index (𝒯)</div>
+                        <div class="metric-num" id="out-mw">--</div>
+                        <div class="metric-lbl">Total Site Draw</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-val" id="metric-latency">32 ms</div>
-                        <div class="metric-lbl">Sync Overhead</div>
+                        <div class="metric-num" id="out-total-gpus">--</div>
+                        <div class="metric-lbl">Aggregate Nodes</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-val" id="metric-efficiency">94%</div>
-                        <div class="metric-lbl">Thermal Efficiency</div>
-                    </div>
-                </div>
-
-                <div class="registry-section">
-                    <div class="registry-title">📁 Global Cluster Blueprint Directory</div>
-                    <div class="registry-list">
-                        <div class="registry-row" onclick="loadRegistryCluster(100, 95, 2)">
-                            <span class="registry-name">xAI Colossus (Memphis, TN)</span>
-                            <span class="registry-spec">100 Nodes • 95 kW • 2 ms</span>
-                        </div>
-                        <div class="registry-row" onclick="loadRegistryCluster(45, 80, 8)">
-                            <span class="registry-name">AWS Constellation (Pennsylvania Nuclear Site)</span>
-                            <span class="registry-spec">45 Nodes • 80 kW • 8 ms</span>
-                        </div>
-                        <div class="registry-row" onclick="loadPreset('nvidia')">
-                            <span class="registry-name">SPAN XFRA Distributed Edge Deployment</span>
-                            <span class="registry-spec">90 Nodes • 4 kW • 110 ms</span>
-                        </div>
-                        <div class="registry-row" onclick="loadPreset('mesh')">
-                            <span class="registry-name">MESH Topology Lab Simulation</span>
-                            <span class="registry-spec">90 Nodes • 4 kW • 110 ms</span>
-                        </div>
+                        <div class="metric-num" id="out-index">--</div>
+                        <div class="metric-lbl">TEO Cluster Index</div>
                     </div>
                 </div>
             </div>
 
-            <div class="notes-pane">
-                <div class="pane-title" style="margin-bottom: 4px;">Operational Notes & Field Ledger</div>
+            <div class="pane">
+                <div class="section-hdr">Global Cluster Blueprint Directory</div>
                 
-                <div class="note-card">
-                    <div class="note-meta">
-                        <span class="note-date">PROPRIETARY THESIS</span>
-                        <span class="note-tag">MESH DESIGN</span>
+                <div class="blueprint-list">
+                    <div class="blueprint-item" onclick="syncDirectoryToSandbox(3120, 32, 80, 1, 'xai')">
+                        <div>
+                            <strong>xAI Colossus Block (Memphis, TN)</strong>
+                            <div class="bp-meta">Phase 1 liquid-cooled standalone hardware core.</div>
+                        </div>
+                        <div class="bp-spec">
+                            <div>3,120 Racks</div>
+                            <div style="color:var(--text-muted); font-size:11px;">80 kW/rack • 1ms</div>
+                        </div>
                     </div>
-                    <h3>Hierarchical Clustered Routing Engine</h3>
-                    <p>Standard edge network topologies completely drop computing utilization due to wide-area network fiber propagation. By grouping decentralized nodes into localized peer cells, 95% of model weights synchronize locally—mitigating the physical speed-of-light penalty across distributed nodes.</p>
-                    <button class="btn-load-model" onclick="loadPreset('mesh')">Simulate MESH Architecture</button>
-                </div>
 
-                <div class="note-card">
-                    <div class="note-meta">
-                        <span class="note-date">JUNE 2026</span>
-                        <span class="note-tag">HARDWARE ACCUMULATION</span>
+                    <div class="blueprint-item" onclick="syncDirectoryToSandbox(1250, 72, 120, 4, 'aws')">
+                        <div>
+                            <strong>AWS Constellation (Talen Energy Site)</strong>
+                            <div class="bp-meta">Direct nuclear interconnection grid deployment.</div>
+                        </div>
+                        <div class="bp-spec">
+                            <div>1,250 Racks</div>
+                            <div style="color:var(--text-muted); font-size:11px;">120 kW/rack • 4ms</div>
+                        </div>
                     </div>
-                    <h3>Tesla Files 'Megapod' Infrastructure Trademark</h3>
-                    <p>Analyzing what containerized, battery-integrated compute units mean for off-grid cluster deployments. By combining high-density clusters directly with localized megapack generation systems, deployment bottlenecks on regional utility interconnection queues can be completely circumvented.</p>
-                    <button class="btn-load-model" onclick="loadPreset('tesla')">Load Model Into Sandbox</button>
-                </div>
-
-                <div class="note-card">
-                    <div class="note-meta">
-                        <span class="note-date">MAY 2026</span>
-                        <span class="note-tag">DISTRIBUTED EDGE</span>
-                    </div>
-                    <h3>SPAN XFRA Distributed Compute Launch</h3>
-                    <p>Evaluating SPAN's partnership with NVIDIA to slide Blackwell GPUs directly into consumer smart electrical panels. While utilizing existing residential power headroom brilliantly evades macro grid constraints, a traditional flat network organization limits these nodes exclusively to decoupled inference workloads due to raw distance constraints.</p>
-                    <button class="btn-load-model" onclick="loadPreset('nvidia')">Load Model Into Sandbox</button>
-                </div>
-
-                <div class="note-card">
-                    <div class="note-meta">
-                        <span class="note-date">APRIL 2026</span>
-                        <span class="note-tag">MACRO STRATEGY</span>
-                    </div>
-                    <h3>The Structural Pillar Split of the AI Ecosystem</h3>
-                    <p>AI scales through three distinct components: Data, Algorithms, and Compute. While firms continuously cross competitive boundaries, the ultimate constraint on the speed of infrastructure iteration is no longer algorithmic—it is physical energy delivery, validating the immediate necessity for distributed mesh network models.</p>
                 </div>
             </div>
 
         </div>
-
-        <footer>
-            <span>Maintained independently as an open-source structural tracking framework.</span>
-            <a href="./archive/index.html">View 2024 Legacy Archive</a>
-        </footer>
     </div>
 
     <script>
-        // High-signal calculation engine for cluster topologies
-        function calculatePhysics() {
-            // 1. Capture Raw Inputs from your existing slider IDs
-            const nodes = parseInt(document.getElementById('input-nodes').value);
-            const power = parseInt(document.getElementById('input-power').value);
-            const radius = parseInt(document.getElementById('input-radius').value);
+        function runInfrastructurePhysics() {
+            // Extract raw data fields safely
+            const racks = parseInt(document.getElementById('range-racks').value);
+            const gpusPerRack = parseInt(document.getElementById('range-gpus').value);
+            const rackPower = parseInt(document.getElementById('range-power').value);
+            const fabricLatency = parseInt(document.getElementById('range-latency').value);
 
-            // Update basic text readouts next to your sliders
-            document.getElementById('val-nodes').innerText = nodes;
-            document.getElementById('val-power').innerText = power + " kW";
-            document.getElementById('val-radius').innerText = radius + " ms";
+            // Update interactive visual slider label indicators
+            document.getElementById('txt-racks').innerText = racks.toLocaleString();
+            document.getElementById('txt-gpus').innerText = gpusPerRack + " GPUs";
+            document.getElementById('txt-power').innerText = rackPower + " kW";
+            document.getElementById('txt-latency').innerText = fabricLatency + " ms";
 
-            // Determine active architectural profile to adjust physical boundaries
-            let activeArch = 'manual';
-            const activeBtn = document.querySelector('.btn-preset.active');
-            if (activeBtn) {
-                const txt = activeBtn.innerText.toLowerCase();
-                if (txt.includes('mesh')) activeArch = 'mesh';
-                else if (txt.includes('megapod')) activeArch = 'megapod';
-                else if (txt.includes('span')) activeArch = 'span';
-            }
-
-            // 2. Physical Modeling Logic
-            // Compute true cluster capacity scaling
-            const absolutePowerMW = (nodes * power) / 1000;
-
-            // Calculate real-world sync penalty: physical distance + communication network hop steps
-            const networkHopsPenalty = Math.log2(nodes) * 2.5; 
-            let finalSyncOverhead = Math.round(radius + networkHopsPenalty);
-
-            // Mesh optimization factor: localized edge peer routing reduces the physical wide-area penalty
-            if (activeArch === 'mesh') {
-                finalSyncOverhead = Math.max(2, Math.round((radius * 0.2) + (networkHopsPenalty * 0.4)));
-            }
-
-            // Thermal dissipation profile estimation based on concentration metrics
-            let thermalEfficiency = 100 - (power * 0.25) - (nodes * 0.02);
-            if (activeArch === 'megapod') thermalEfficiency += 5; // Account for integrated containerized liquid loop cooling offsets
-            thermalEfficiency = Math.max(Math.min(Math.round(thermalEfficiency), 98), 50);
-
-            // 3. Formulate the Structural TEO Index (𝒯)
-            const latencyCostFactor = finalSyncOverhead / 20;
-            let teoIndex = (nodes * power) / (finalSyncOverhead * (1 + (100 - thermalEfficiency) / 100));
+            // 1. Core Engineering Metrics Calculations
+            const totalPowerMW = (racks * rackPower) / 1000;
+            const totalGPUs = racks * gpusPerRack;
             
-            // Scale index cleanly for presentation consistency
-            teoIndex = teoIndex * 0.8; 
+            // TEO Index formulation balance calculation
+            // Scales with cluster sizing but penalizes layout latency overhead constraints
+            const synchronizationOverheadFactor = fabricLatency * (1 + (racks / 2000));
+            const infrastructureEfficiencyIndex = (totalGPUs * 0.05) / (synchronizationOverheadFactor || 1);
 
-            // 4. Dom UI Mapping Layout Writes
-            document.getElementById('metric-latency').innerText = finalSyncOverhead + " ms";
-            document.getElementById('metric-efficiency').innerText = thermalEfficiency + "%";
-            document.getElementById('metric-tco').innerText = teoIndex.toFixed(1);
+            // Update DOM element nodes
+            document.getElementById('out-mw').innerText = totalPowerMW.toFixed(2) + " MW";
+            document.getElementById('out-total-gpus').innerText = totalGPUs.toLocaleString();
+            document.getElementById('out-index').innerText = infrastructureEfficiencyIndex.toFixed(1);
 
-            // Dynamic UI color code state adjustments based on engineering limits
-            const indexElement = document.getElementById('metric-tco');
-            if (teoIndex > 120) {
-                indexElement.style.color = "#10b981"; // Optimal configuration
-            } else if (teoIndex > 50) {
-                indexElement.style.color = "#f59e0b"; // Borderline performance scaling bottlenecks
-            } else {
-                indexElement.style.color = "#ef4444"; // Major architectural degradation
-            }
+            // 2. High-Density Layout Coordinate Renderer Pipeline
+            const viewMatrixCanvas = document.getElementById('node-matrix');
+            viewMatrixCanvas.innerHTML = ''; // Wipe trace nodes safely
 
-            // 5. Visual Cluster Token Matrix Renderer
-            const canvas = document.getElementById('canvas-nodes');
-            if (canvas) {
-                // Clear previous canvas child tokens cleanly
-                const existingNodes = canvas.querySelectorAll('.satellite-node');
-                existingNodes.forEach(n => n.remove());
+            // Normalize rendering counts to maintain performance while visualizing scale density
+            const visibleDotsCount = Math.min(racks, 140);
+            const matrixCols = Math.ceil(Math.sqrt(visibleDotsCount));
+            const dotPaddingGap = 10;
+            const centerOffsetX = -((matrixCols - 1) * dotPaddingGap) / 2;
+            const centerOffsetY = -((Math.ceil(visibleDotsCount / matrixCols) - 1) * dotPaddingGap) / 2;
 
-                // Cap actual rendered nodes to protect system performance
-                const renderCount = Math.min(nodes, 120);
+            for (let i = 0; i < visibleDotsCount; i++) {
+                const nodeToken = document.createElement('div');
+                nodeToken.className = 'satellite-node';
+                
+                const colIndex = i % matrixCols;
+                const rowIndex = Math.floor(i / matrixCols);
+                
+                const xPos = centerOffsetX + (colIndex * dotPaddingGap);
+                const yPos = centerOffsetY + (rowIndex * dotPaddingGap);
 
-                for (let i = 0; i < renderCount; i++) {
-                    const nodeToken = document.createElement('div');
-                    nodeToken.className = 'satellite-node';
-
-                    if (activeArch === 'mesh') {
-                        // Hierarchical Cell Clustered Rendering Ring (as seen in your screen captures)
-                        const totalCells = Math.ceil(renderCount / 6);
-                        const cellId = Math.floor(i / 6);
-                        const cellAngle = (cellId * 2 * Math.PI) / totalCells;
-                        
-                        const visualRadius = Math.min(30 + (radius * 0.4), 95);
-                        const cellCenterX = Math.cos(cellAngle) * visualRadius;
-                        const cellCenterY = Math.sin(cellAngle) * visualRadius;
-                        
-                        const localAngle = ((i % 6) * 2 * Math.PI) / 6;
-                        const nodeX = cellCenterX + (Math.cos(localAngle) * 6);
-                        const nodeY = cellCenterY + (Math.sin(localAngle) * 6);
-
-                        nodeToken.style.background = '#2563eb';
-                        nodeToken.style.boxShadow = '0 0 6px rgba(37, 99, 235, 0.6)';
-                        nodeToken.style.transform = `translate(${nodeX}px, ${nodeY}px)`;
-
-                    } else {
-                        // Classical Distributed Core Topology (Ring Expansions)
-                        const angle = (i * 2 * Math.PI) / renderCount;
-                        const visualRadius = Math.min(25 + (radius * 0.5), 100);
-                        
-                        const nodeX = Math.cos(angle) * visualRadius;
-                        const nodeY = Math.sin(angle) * visualRadius;
-
-                        nodeToken.style.background = finalSyncOverhead > 60 ? '#f59e0b' : '#ffffff';
-                        nodeToken.style.transform = `translate(${nodeX}px, ${nodeY}px)`;
-                    }
-
-                    canvas.appendChild(nodeToken);
+                // Dynamically color node profiles to warn of severe power density bounds
+                if (rackPower >= 100) {
+                    nodeToken.style.background = '#ef4444';
+                    nodeToken.style.boxShadow = '0 0 6px #ef4444';
+                } else if (rackPower >= 60) {
+                    nodeToken.style.background = '#3b82f6';
+                    nodeToken.style.boxShadow = '0 0 6px #3b82f6';
+                } else {
+                    nodeToken.style.background = '#a1a1aa';
+                    nodeToken.style.boxShadow = 'none';
                 }
+
+                nodeToken.style.transform = `translate(${xPos}px, ${yPos}px)`;
+                viewMatrixCanvas.appendChild(nodeToken);
             }
         }
 
-        // Preset Routing Layer
-        function loadPreset(presetKey) {
-            const configs = {
-                span: { nodes: 90, power: 4, radius: 110 },
-                megapod: { nodes: 32, power: 90, radius: 8 },
-                mesh: { nodes: 90, power: 4, radius: 22 }
-            };
+        // Handle structural synchronization toggles cleanly between top tabs and layout cards
+        function activatePreset(presetMode) {
+            // Toggle highlight visual tokens cleanly across the button arrays
+            document.querySelectorAll('.btn-preset').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`preset-${presetMode}`).classList.add('active');
 
-            const target = configs[presetKey];
-            if (!target) return;
-
-            // Update raw input elements directly to trigger matching visual states
-            document.getElementById('input-nodes').value = target.nodes;
-            document.getElementById('input-power').value = target.power;
-            document.getElementById('input-radius').value = target.radius;
-
-            calculatePhysics();
+            if (presetMode === 'xai') {
+                setSlidersValue(3120, 32, 80, 1);
+            } else if (presetMode === 'aws') {
+                setSlidersValue(1250, 72, 120, 4);
+            }
         }
-   
-   </script>
+
+        function syncDirectoryToSandbox(r, g, p, l, modeId) {
+            activatePreset(modeId);
+            setSlidersValue(r, g, p, l);
+        }
+
+        function setSlidersValue(r, g, p, l) {
+            document.getElementById('range-racks').value = r;
+            document.getElementById('range-gpus').value = g;
+            document.getElementById('range-power').value = p;
+            document.getElementById('range-latency').value = l;
+            runInfrastructurePhysics();
+        }
+
+        // Initialize sandbox engine operations upon initial load sequence automatically
+        runInfrastructurePhysics();
+    </script>
 </body>
 </html>
