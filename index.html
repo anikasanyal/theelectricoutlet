@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Electric Outlet — Frontier Topology Lab</title>
+    <title>The Electric Outlet — Compute Topology Lab</title>
     
     <link rel="icon" type="image/png" href="logo_icon.png">
     
@@ -15,7 +15,8 @@
             --text-primary: #f4f4f5;
             --text-secondary: #a1a1aa;
             --accent-blue: #3b82f6;
-            --accent-glow: rgba(59, 130, 246, 0.15);
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
         }
 
         body {
@@ -58,7 +59,7 @@
             padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
         }
 
         .panel-tag {
@@ -78,7 +79,7 @@
             background: #16161a;
             border: 1px solid var(--border-color);
             color: var(--text-primary);
-            padding: 8px 14px;
+            padding: 10px 14px;
             border-radius: 4px;
             cursor: pointer;
             font-size: 12px;
@@ -97,7 +98,8 @@
         .indicator-dot { width: 7px; height: 7px; border-radius: 50%; }
 
         .slider-group { display: flex; flex-direction: column; gap: 8px; }
-        .slider-meta-row { display: flex; justify-content: space-between; font-size: 12px; }
+        .slider-meta-row { display: flex; justify-content: space-between; font-size: 12px; font-weight: 500; }
+        .slider-desc { font-size: 11px; color: var(--text-secondary); margin-top: -2px; }
 
         input[type="range"] {
             width: 100%;
@@ -108,11 +110,11 @@
             border-radius: 2px;
         }
 
-        /* HARDWARE SPATIAL CANVAS (ZOOMED OUT OPTIMIZED) */
+        /* HARDWARE SPATIAL CANVAS (ZOOMED OUT VIEWPORT) */
         .topography-box {
             background: #08080a;
             border: 1px solid var(--border-color);
-            height: 220px;
+            height: 200px;
             border-radius: 6px;
             position: relative;
             display: flex;
@@ -131,14 +133,14 @@
 
         .hardware-dot {
             position: absolute;
-            width: 4px; /* Slightly smaller for crisper resolution density */
+            width: 4px;
             height: 4px;
             border-radius: 50%;
             background: var(--accent-blue);
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
         }
 
-        /* READOUT METRIC CARDS WITH HOVER TOOLTIPS */
+        /* METRIC DISPLAY CARDS WITH CLEAN HOVER TOOLTIPS */
         .readout-bar {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -153,16 +155,14 @@
             text-align: center;
             position: relative;
             cursor: help;
+            transition: border-color 0.15s ease;
         }
 
-        .readout-card:hover {
-            border-color: var(--text-secondary);
-        }
-
+        .readout-card:hover { border-color: var(--text-secondary); }
         .readout-number { font-size: 18px; font-weight: 700; color: #ffffff; }
         .readout-label { font-size: 10px; color: var(--text-secondary); text-transform: uppercase; margin-top: 4px; }
 
-        /* HOVER EQUATION TOOLTIP SYSTEM */
+        /* HOVER TOOLTIPS */
         .formula-tooltip {
             visibility: hidden;
             position: absolute;
@@ -172,12 +172,12 @@
             background: #1c1c24;
             border: 1px solid var(--border-color);
             color: var(--text-primary);
-            padding: 10px 14px;
+            padding: 12px 14px;
             border-radius: 6px;
             font-size: 11px;
-            width: 220px;
+            width: 240px;
             text-align: left;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.5);
             z-index: 10;
             opacity: 0;
             transition: opacity 0.15s ease, transform 0.15s ease;
@@ -204,18 +204,18 @@
         .formula-title {
             font-weight: 700;
             color: var(--accent-blue);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             text-transform: uppercase;
             font-size: 9px;
             letter-spacing: 0.04em;
         }
 
-        .directory-stack { display: flex; flex-direction: column; gap: 10px; }
+        .directory-stack { display: flex; flex-direction: column; gap: 12px; }
 
         .directory-card {
             background: #141417;
             border: 1px solid var(--border-color);
-            padding: 14px;
+            padding: 16px;
             border-radius: 6px;
             cursor: pointer;
             display: flex;
@@ -225,9 +225,9 @@
         }
 
         .directory-card:hover { border-color: var(--text-secondary); background: #17171c; }
-        .dir-title { font-weight: 600; font-size: 13px; }
-        .dir-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
-        .dir-spec-block { font-family: monospace; font-size: 12px; text-align: right; }
+        .dir-title { font-weight: 600; font-size: 13px; margin-bottom: 2px; }
+        .dir-sub { font-size: 11px; color: var(--text-secondary); line-height: 1.4; }
+        .dir-spec-block { font-family: monospace; font-size: 12px; text-align: right; min-width: 100px; }
 
         .footer-pipeline {
             display: flex;
@@ -250,43 +250,47 @@
                 <img src="full_logo_color.png" alt="The Electric Outlet" style="height: 32px; width: auto; display: block;">
             </div>
             <p style="color: var(--text-secondary); font-size: 13px; margin: 0; max-width: 800px; line-height: 1.5;">
-                Independent tracking, structural metrics, and operational capacity profiling across active global hyperscale compute nodes.
+                Independent tracking, structural metrics, and physical capacity profiling across global compute networks, edge topologies, and deep training arrays.
             </p>
         </header>
 
         <div class="workspace-grid">
             
             <div class="panel-container">
-                <p class="panel-tag">● Hyper-Node Sandbox Simulator</p>
+                <p class="panel-tag">● Physical Grid & Network Sandbox</p>
                 
                 <div class="preset-flex">
-                    <button class="preset-tab active" id="tab-custom" onclick="routePresetContext('custom')">🛠️ Custom Parameters</button>
-                    <button class="preset-tab" id="tab-colossus" onclick="routePresetContext('colossus')"><span class="indicator-dot" style="background:var(--accent-blue);"></span> xAI Colossus</button>
-                    <button class="preset-tab" id="tab-helio" onclick="routePresetContext('helio')"><span class="indicator-dot" style="background:#10b981;"></span> Frontier Cluster</button>
+                    <button class="preset-tab active" id="tab-custom" onclick="setPresetContext('custom')">🛠️ Custom Setup</button>
+                    <button class="preset-tab" id="tab-waymo" onclick="setPresetContext('waymo')"><span class="indicator-dot" style="background:var(--accent-emerald);"></span> Vehicle Edge (Waymo)</button>
+                    <button class="preset-tab" id="tab-chatgpt" onclick="setPresetContext('chatgpt')"><span class="indicator-dot" style="background:var(--accent-amber);"></span> Distributed Inference (ChatGPT)</button>
+                    <button class="preset-tab" id="tab-colossus" onclick="setPresetContext('colossus')"><span class="indicator-dot" style="background:var(--accent-blue);"></span> Megawatt Array (Colossus)</button>
                 </div>
 
                 <div class="slider-group">
                     <div class="slider-meta-row">
-                        <span>Total Hardware Racks</span>
+                        <span>Cluster Physical Footprint</span>
                         <span id="lbl-racks" style="font-weight:600;">--</span>
                     </div>
-                    <input type="range" id="field-racks" min="50" max="4000" step="50" value="1000" oninput="processClusterPhysics()">
+                    <div class="slider-desc">Total deployed hardware chassis stacks housing computer elements.</div>
+                    <input type="range" id="field-racks" min="1" max="4000" step="10" value="1000" oninput="runNetworkPhysics()">
                 </div>
 
                 <div class="slider-group">
                     <div class="slider-meta-row">
-                        <span>Rack Power Density Allocation</span>
+                        <span>Thermal Density per Rack</span>
                         <span id="lbl-power" style="font-weight:600;">--</span>
                     </div>
-                    <input type="range" id="field-power" min="15" max="140" step="5" value="60" oninput="processClusterPhysics()">
+                    <div class="slider-desc">Localized electricity allocation required to support logic gates under peak load.</div>
+                    <input type="range" id="field-power" min="2" max="140" step="2" value="60" oninput="runNetworkPhysics()">
                 </div>
 
                 <div class="slider-group">
                     <div class="slider-meta-row">
-                        <span>Inter-Rack Network Latency</span>
-                        <span id="lbl-latency" style="font-weight:600;">--</span>
+                        <span>User Request Call Radius</span>
+                        <span id="lbl-distance" style="font-weight:600;">--</span>
                     </div>
-                    <input type="range" id="field-latency" min="1" max="45" step="1" value="4" oninput="processClusterPhysics()">
+                    <div class="slider-desc">Physical distance between where the action takes place and where the neural model rests.</div>
+                    <input type="range" id="field-distance" min="0" max="3000" step="25" value="400" oninput="runNetworkPhysics()">
                 </div>
 
                 <div class="topography-box">
@@ -297,10 +301,10 @@
                 <div class="readout-bar">
                     <div class="readout-card">
                         <div class="formula-tooltip">
-                            <div class="formula-title">Utility Load Logic</div>
+                            <div class="formula-title">Facility Interconnect Load</div>
                             <strong>Formula:</strong><br>
                             $$\text{MW} = \frac{\text{Racks} \times \text{kW/Rack}}{1000}$$<br><br>
-                            Aggregates the physical power grid interconnection demand required to hold constant network loads without storage buffers.
+                            Quantifies total grid capacity drawn continuously. Scaled arrays hit structural regional power limits.
                         </div>
                         <div class="readout-number" id="read-mw">--</div>
                         <div class="readout-label">Calculated Load</div>
@@ -308,22 +312,21 @@
 
                     <div class="readout-card">
                         <div class="formula-tooltip">
-                            <div class="formula-title">Fabric Penalty Logic</div>
+                            <div class="formula-title">True Execution Delay</div>
                             <strong>Formula:</strong><br>
-                            $$\text{Overhead} = \text{Base Latency} \times \left(1 + \frac{\text{Racks}}{1600}\right)$$<br><br>
-                            Models systemic packet drop penalties and multi-stage distribution switches across massive hardware backplanes.
+                            $$\text{Latency} = \left(\frac{\text{Miles}}{100}\right) \times 1.6\text{ ms} + \left(\frac{\text{Racks}}{800}\right)$$<br><br>
+                            Calculates fiber-optic transmission constraints (speed of light in silica) compounded by intra-cluster network switches.
                         </div>
-                        <div class="readout-number" id="read-overhead">--</div>
+                        <div class="readout-number" id="read-latency">--</div>
                         <div class="readout-label">Sync Latency</div>
                     </div>
 
                     <div class="readout-card">
                         <div class="formula-tooltip">
-                            <div class="formula-title">Thermal Drag Logic</div>
+                            <div class="formula-title">Thermal Dissipation Vector</div>
                             <strong>Formula:</strong><br>
-                            $$\text{PUE} = 1.05 + \left(\frac{\text{kW/Rack}}{400}\right)$$<br>
-                            $$\text{Efficiency} = \frac{1}{\text{PUE}}$$<br><br>
-                            Tracks thermal density spikes. Higher density per rack requires exponentially more energy for secondary heat rejection.
+                            $$\text{PUE} = 1.04 + \left(\frac{\text{kW/Rack}}{500}\right) + \left(\frac{\text{Racks}}{40000}\right)$$<br><br>
+                            Tracks energy efficiency. Extreme server density results in a localized thermal tax for secondary heat rejection.
                         </div>
                         <div class="readout-number" id="read-thermal">--</div>
                         <div class="readout-label">Thermal Efficiency</div>
@@ -332,28 +335,39 @@
             </div>
 
             <div class="panel-container">
-                <p class="panel-tag">📁 Monolithic Cluster Architecture Index</p>
+                <p class="panel-tag">📁 Topology Target Archetypes</p>
                 
                 <div class="directory-stack">
-                    <div class="directory-card" onclick="syncCardDataToSandbox(3150, 85, 2, 'colossus')">
+                    <div class="directory-card" onclick="injectCardToSandbox(1, 4, 0, 'waymo')">
                         <div>
-                            <div class="dir-title">xAI Colossus Core Cluster (Memphis, TN)</div>
-                            <div class="dir-sub">Massive active single-site footprint utilizing unified network liquid manifolds.</div>
+                            <div class="dir-title">Autonomous Vehicle Edge Vector (Waymo Archetype)</div>
+                            <div class="dir-sub">On-device inference array localized to the physical trunk chassis. Bypasses wide-area cell network hops to achieve zero safety-critical transmission delays.</div>
                         </div>
                         <div class="dir-spec-block">
-                            <div>3,150 Racks</div>
-                            <div style="color:var(--text-secondary); font-size:11px; margin-top:2px;">85 kW/rack • 2ms</div>
+                            <div style="color:var(--accent-emerald);">Localized</div>
+                            <div style="color:var(--text-secondary); font-size:11px; margin-top:2px;">1 Rack • <1 ms</div>
                         </div>
                     </div>
 
-                    <div class="directory-card" onclick="syncCardDataToSandbox(1400, 110, 8, 'helio')">
+                    <div class="directory-card" onclick="injectCardToSandbox(800, 45, 950, 'chatgpt')">
                         <div>
-                            <div class="dir-title">Frontier Hyperscale Ring (Hyperscale Asset)</div>
-                            <div class="dir-sub">High-density liquid distribution rings tied to primary regional transmission grids.</div>
+                            <div class="dir-title">Distributed Commercial Cloud Inference (ChatGPT Archetype)</div>
+                            <div class="dir-sub">User request hitting urban edge endpoints, dynamically routing across transcontinental dark-fiber infrastructure links to central processing data facility cores.</div>
                         </div>
                         <div class="dir-spec-block">
-                            <div>1,400 Racks</div>
-                            <div style="color:var(--text-secondary); font-size:11px; margin-top:2px;">110 kW/rack • 8ms</div>
+                            <div style="color:var(--accent-amber);">Dynamic WAN</div>
+                            <div style="color:var(--text-secondary); font-size:11px; margin-top:2px;">800 Racks • ~16 ms</div>
+                        </div>
+                    </div>
+
+                    <div class="directory-card" onclick="injectCardToSandbox(3150, 85, 25, 'colossus')">
+                        <div>
+                            <div class="dir-title">Monolithic Frontier Training Array (xAI Colossus)</div>
+                            <div class="dir-sub">Massive, contiguous physical hardware block relying on high-volume liquid manifold distribution pipelines. High concentrated utility grid interaction footprint.</div>
+                        </div>
+                        <div class="dir-spec-block">
+                            <div style="color:var(--accent-blue);">Massive Scale</div>
+                            <div style="color:var(--text-secondary); font-size:11px; margin-top:2px;">3,150 Racks • 25 mi</div>
                         </div>
                     </div>
                 </div>
@@ -367,97 +381,127 @@
     </div>
 
     <script>
-        function processClusterPhysics() {
+        function runNetworkPhysics() {
             const racks = parseInt(document.getElementById('field-racks').value);
             const powerPerRack = parseInt(document.getElementById('field-power').value);
-            const baseLatency = parseInt(document.getElementById('field-latency').value);
+            const distanceMiles = parseInt(document.getElementById('field-distance').value);
 
-            // Present direct inputs instantly to user
-            document.getElementById('lbl-racks').innerText = racks.toLocaleString() + " Racks";
+            // Update user input metric readouts
+            document.getElementById('lbl-racks').innerText = racks.toLocaleString() + (racks === 1 ? " Rack" : " Racks");
             document.getElementById('lbl-power').innerText = powerPerRack + " kW/rack";
-            document.getElementById('lbl-latency').innerText = baseLatency + " ms";
+            document.getElementById('lbl-distance').innerText = distanceMiles.toLocaleString() + " Miles";
 
-            // 1. PHYSICAL GRID & INFRASTRUCTURE ANALYSIS MODELLING
-            const totalLoadMW = (racks * powerPerRack) / 1000;
+            // 1. HARD INFRASTRUCTURE POWER LOGIC
+            const systemLoadMW = (racks * powerPerRack) / 1000;
             
-            // Sync Overhead increases with scale due to networking fabric layer complexity
-            const scalableFabricOverhead = baseLatency * (1 + (racks / 1600));
-            
-            // High rack densities lower mechanical cooling efficiency (estimated via standard PUE degradation curves)
-            const simulatedPUE = 1.05 + (powerPerRack / 400);
-            const thermalEfficiencyPercent = Math.max(60, Math.min(96, Math.round((1 / simulatedPUE) * 100)));
+            // 2. SPEED OF LIGHT SILICA FIBER DELAY + FABRIC BACKPLANE ROUTING hops
+            const fiberPropagationDelay = (distanceMiles / 100) * 1.6; 
+            const fabricSwitchOverhead = (racks / 800); 
+            const trueCalculatedLatency = Math.max(1, Math.round(fiberPropagationDelay + fabricSwitchOverhead));
+
+            // 3. THERMAL SPIKE DEGRADATION MODEL
+            const derivedPUE = 1.04 + (powerPerRack / 500) + (racks / 40000);
+            const thermalEfficiencyPercent = Math.max(55, Math.min(98, Math.round((1 / derivedPUE) * 100)));
 
             // Inject metrics safely into UI readout blocks
-            document.getElementById('read-mw').innerText = totalLoadMW.toFixed(1) + " MW";
-            document.getElementById('read-overhead').innerText = Math.round(scalableFabricOverhead) + " ms";
+            document.getElementById('read-mw').innerText = systemLoadMW < 1 ? (systemLoadMW * 1000).toFixed(0) + " kW" : systemLoadMW.toFixed(1) + " MW";
+            document.getElementById('read-latency').innerText = trueCalculatedLatency + " ms";
             document.getElementById('read-thermal').innerText = thermalEfficiencyPercent + "%";
 
-            // 2. ZOOMED OUT COMPACT GEOMETRICAL COORDINATE RENDERING MATRIX
-            const canvasMatrix = document.getElementById('spatial-canvas');
-            canvasMatrix.innerHTML = ''; // Clear prior elements safely
+            // Determine active archetype profile layout context
+            let activePreset = 'custom';
+            const activeTab = document.querySelector('.preset-tab.active');
+            if (activeTab) activePreset = activeTab.id.replace('tab-', '');
 
-            // Sample down total visual nodes so the canvas elements don't bunch into a solid ball
-            const scalingFactorLimit = Math.min(racks, 500);
-            const layoutColumns = Math.ceil(Math.sqrt(scalingFactorLimit));
-            
-            // Reduced spacing step to gracefully handle highly dense cluster views without overflowing boundaries
-            const dynamicSpacingStep = 6; 
-            
-            const positionStartX = -((layoutColumns - 1) * dynamicSpacingStep) / 2;
-            const positionStartY = -((Math.ceil(scalingFactorLimit / layoutColumns) - 1) * dynamicSpacingStep) / 2;
+            // 4. ZOOMED OUT GEOMETRICAL DOT MATRIX CANVAS ENGINE
+            const canvas = document.getElementById('spatial-canvas');
+            canvas.innerHTML = '';
 
-            for (let i = 0; i < scalingFactorLimit; i++) {
-                const hardwareNodeToken = document.createElement('div');
-                hardwareNodeToken.className = 'hardware-dot';
+            if (activePreset === 'waymo') {
+                // Waymo Node Visual layout: Single intensely centered high-efficiency point
+                const singleEdgeNode = document.createElement('div');
+                singleEdgeNode.className = 'hardware-dot';
+                singleEdgeNode.style.background = 'var(--accent-emerald)';
+                singleEdgeNode.style.boxShadow = '0 0 12px var(--accent-emerald)';
+                singleEdgeNode.style.transform = 'translate(0px, 0px) scale(2.5)';
+                canvas.appendChild(singleEdgeNode);
+            } else if (activePreset === 'chatgpt') {
+                // ChatGPT Node Visual Layout: Distant User node firing telemetry pulses to data cloud block
+                const userTerminal = document.createElement('div');
+                userTerminal.className = 'hardware-dot';
+                userTerminal.style.background = '#ffffff';
+                userTerminal.style.transform = 'translate(-80px, 10px) scale(1.5)';
+                userTerminal.style.boxShadow = '0 0 8px #ffffff';
+                canvas.appendChild(userTerminal);
 
-                const colIndex = i % layoutColumns;
-                const rowIndex = Math.floor(i / layoutColumns);
-
-                const computedX = positionStartX + (colIndex * dynamicSpacingStep);
-                const computedY = positionStartY + (rowIndex * dynamicSpacingStep);
-
-                // Thermal load styling threshold logic
-                if (powerPerRack >= 100) {
-                    hardwareNodeToken.style.background = '#ef4444';
-                    hardwareNodeToken.style.boxShadow = '0 0 4px rgba(239, 68, 68, 0.6)';
-                } else if (powerPerRack >= 65) {
-                    hardwareNodeToken.style.background = 'var(--accent-blue)';
-                    hardwareNodeToken.style.boxShadow = '0 0 4px rgba(59, 130, 246, 0.6)';
-                } else {
-                    hardwareNodeToken.style.background = '#4b5563';
-                    hardwareNodeToken.style.boxShadow = 'none';
+                // Sample cloud cluster blocks
+                for (let j = 0; j < 40; j++) {
+                    const cloudNode = document.createElement('div');
+                    cloudNode.className = 'hardware-dot';
+                    cloudNode.style.background = 'var(--accent-amber)';
+                    const x = 40 + (j % 6) * 8;
+                    const y = -20 + Math.floor(j / 6) * 8;
+                    cloudNode.style.transform = `translate(${x}px, ${y}px)`;
+                    canvas.appendChild(cloudNode);
                 }
+            } else {
+                // Megawatt Array Visual: Massive, zoomed-out uniform monolithic hardware matrix array
+                const sampleDisplayLimit = Math.min(racks, 240);
+                const gridWidthCols = Math.ceil(Math.sqrt(sampleDisplayLimit * 1.6));
+                const stepRadius = 5;
 
-                hardwareNodeToken.style.transform = `translate(${computedX}px, ${computedY}px)`;
-                canvasMatrix.appendChild(hardwareNodeToken);
+                const startOffsetCentroidX = -((gridWidthCols - 1) * stepRadius) / 2;
+                const startOffsetCentroidY = -((Math.ceil(sampleDisplayLimit / gridWidthCols) - 1) * stepRadius) / 2;
+
+                for (let i = 0; i < sampleDisplayLimit; i++) {
+                    const arrayDot = document.createElement('div');
+                    arrayDot.className = 'hardware-dot';
+
+                    const col = i % gridWidthCols;
+                    const row = Math.floor(i / gridWidthCols);
+                    const x = startOffsetCentroidX + (col * stepRadius);
+                    const y = startOffsetCentroidY + (row * stepRadius);
+
+                    if (powerPerRack >= 90) {
+                        arrayDot.style.background = 'var(--accent-blue)';
+                        arrayDot.style.boxShadow = '0 0 3px rgba(59, 130, 246, 0.5)';
+                    } else {
+                        arrayDot.style.background = '#4b5563';
+                    }
+
+                    arrayDot.style.transform = `translate(${x}px, ${y}px)`;
+                    canvas.appendChild(arrayDot);
+                }
             }
         }
 
-        function routePresetContext(presetId) {
+        function setPresetContext(presetId) {
             document.querySelectorAll('.preset-tab').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`tab-${presetId}`).classList.add('active');
 
-            if (presetId === 'colossus') {
-                updateInputValues(3150, 85, 2);
-            } else if (presetId === 'helio') {
-                updateInputValues(1400, 110, 8);
+            if (presetId === 'waymo') {
+                updateSliderInputs(1, 4, 0);
+            } else if (presetId === 'chatgpt') {
+                updateSliderInputs(800, 45, 950);
+            } else if (presetId === 'colossus') {
+                updateSliderInputs(3150, 85, 25);
             }
         }
 
-        function syncCardDataToSandbox(rCount, pAllocation, lMetric, activeTabKey) {
-            routePresetContext(activeTabKey);
-            updateInputValues(rCount, pAllocation, lMetric);
+        function injectCardToSandbox(r, p, d, targetTabKey) {
+            setPresetContext(targetTabKey);
+            updateSliderInputs(r, p, d);
         }
 
-        function updateInputValues(rCount, pAllocation, lMetric) {
-            document.getElementById('field-racks').value = rCount;
-            document.getElementById('field-power').value = pAllocation;
-            document.getElementById('field-latency').value = lMetric;
-            processClusterPhysics();
+        function updateSliderInputs(r, p, d) {
+            document.getElementById('field-racks').value = r;
+            document.getElementById('field-power').value = p;
+            document.getElementById('field-distance').value = d;
+            runNetworkPhysics();
         }
 
-        // Initialize execution on runtime lifecycle initialization
-        processClusterPhysics();
+        // Trigger foundational physics parameters runtime sequence
+        runNetworkPhysics();
     </script>
 </body>
 </html>
